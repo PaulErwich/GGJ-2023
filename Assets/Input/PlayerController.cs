@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
 
     private int jump_count = 0;
     private int max_jump_count = 3;
+    private bool isflying = true;
 
     private void Start()
     {
