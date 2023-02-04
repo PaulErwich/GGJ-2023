@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2796f89e881dc344791654f3380cc9e5
+guid: ac4c4b4022f15fe418016515aa8fe04c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -119,8 +119,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8cd95c65b7bc09a48b9a862f6225b5bb
-      internalID: 528081509
+      spriteID: 3de8ca0449bef384aa0760713d414a1e
+      internalID: -995319846
       vertices: []
       indices: 
       edges: []
@@ -140,8 +140,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 15cea86b0b155484b8e89193943d04a8
-      internalID: 1215045139
+      spriteID: d58d7dc441e268b4e8dbe93c6d361d6e
+      internalID: -1428404275
       vertices: []
       indices: 
       edges: []
@@ -157,8 +157,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      bird_idle-Sheet_0: 528081509
-      bird_idle-Sheet_1: 1215045139
+      bird_idle-Sheet_0: -995319846
+      bird_idle-Sheet_1: -1428404275
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

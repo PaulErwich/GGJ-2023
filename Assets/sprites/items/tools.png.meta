@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5c913f3bd7658e942b680eeaf9902872
+guid: c1c5287203d7dd94f99ab8638e3f1bb0
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -119,8 +119,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ee36a34f6aaffff47a45e94a3ee12bb5
-      internalID: 1526133256
+      spriteID: cf0270731c47ad1438fd733582dca724
+      internalID: -230999670
       vertices: []
       indices: 
       edges: []
@@ -140,8 +140,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 34edc3336944c9f4f9c5b57f63741eef
-      internalID: 1332687884
+      spriteID: 5d3360e0f78fe604790ac754bb85977c
+      internalID: 415973366
       vertices: []
       indices: 
       edges: []
@@ -161,8 +161,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ee658f9cd36ddbb48a4056920b2e2352
-      internalID: -2036247701
+      spriteID: bfacdcb38111a774ba1d7ff30170479b
+      internalID: 2094929536
       vertices: []
       indices: 
       edges: []
@@ -182,8 +182,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d64cf457aa612e547b2d050ef2d7df58
-      internalID: 353816479
+      spriteID: 0b410da8d09695d4e8dd0bfe0e7b6cb4
+      internalID: -1100321141
       vertices: []
       indices: 
       edges: []
@@ -203,8 +203,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8722dafaa57a8b4418985820d4a852d9
-      internalID: -1298801198
+      spriteID: e94e01e56af60664389423fb083bf21f
+      internalID: 849554503
       vertices: []
       indices: 
       edges: []
@@ -224,8 +224,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 824adf340ee891845ae0ed12511fa45a
-      internalID: -1654025444
+      spriteID: 9921eb6f7e4537c48bc0ae448af6d209
+      internalID: 2256946
       vertices: []
       indices: 
       edges: []
@@ -245,8 +245,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7bdb996ef47a56542ba9901c83efd94c
-      internalID: -1306726282
+      spriteID: ae89c75248cb4314384586f85fcb5650
+      internalID: 706117820
       vertices: []
       indices: 
       edges: []
@@ -266,8 +266,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d447bd6fc8d77534ea9944e982d19e1f
-      internalID: -617473813
+      spriteID: 043ffc422855c6d4b90844303f9fcc66
+      internalID: -1100308930
       vertices: []
       indices: 
       edges: []
@@ -287,8 +287,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b01e383df5759b6449e8f30ca3b81ba3
-      internalID: -1451600754
+      spriteID: 9fdc162cfb4a5ca47841b621ecb114d7
+      internalID: -1115832545
       vertices: []
       indices: 
       edges: []
@@ -308,8 +308,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4c5a0beb0af4d884a8e560ad61074794
-      internalID: -282476960
+      spriteID: 1fe6f8ae61b1f234687b105c54e28961
+      internalID: 448508496
       vertices: []
       indices: 
       edges: []
@@ -325,16 +325,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      tools_3: 353816479
-      tools_6: -1306726282
-      tools_0: 1526133256
-      tools_2: -2036247701
-      tools_9: -282476960
-      tools_1: 1332687884
-      tools_5: -1654025444
-      tools_7: -617473813
-      tools_4: -1298801198
-      tools_8: -1451600754
+      tools_3: -1100321141
+      tools_6: 706117820
+      tools_0: -230999670
+      tools_2: 2094929536
+      tools_9: 448508496
+      tools_1: 415973366
+      tools_5: 2256946
+      tools_7: -1100308930
+      tools_4: 849554503
+      tools_8: -1115832545
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
