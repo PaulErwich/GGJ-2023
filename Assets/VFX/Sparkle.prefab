@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8006341847184584634}
   - component: {fileID: 6092137601897756841}
   - component: {fileID: 4304319840156870108}
-  - component: {fileID: 2898440222284825999}
+  - component: {fileID: 3615598950106264185}
   m_Layer: 0
   m_Name: Sparkle
   m_TagString: Untagged
@@ -4813,7 +4813,7 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &2898440222284825999
+--- !u!114 &3615598950106264185
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4822,7 +4822,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 2213972981439710283}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c320245b4167acb458cf16dcce2318e3, type: 3}
+  m_Script: {fileID: 11500000, guid: da14d0cb648e39b41959af3b192dfac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  test: {fileID: 0}
