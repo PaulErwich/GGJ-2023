@@ -15,6 +15,9 @@ public class UIScript : MonoBehaviour
     //TOOL LEVELS //
     private Image picklogo;
     private Image shovelogo;
+    private int picknum = 1;
+    private int shovelnum = 4;
+    private Sprite[] tools;
     // ---------- //
     void Start()
     {
@@ -23,6 +26,7 @@ public class UIScript : MonoBehaviour
         
         picklogo = gameObject.transform.Find("Pick_level").GetComponent<Image>();
         shovelogo = gameObject.transform.Find("Shovel_level").GetComponent<Image>();
+        tools = Resources.LoadAll<Sprite>("Sprites/tools");
     }
     
     void FixedUpdate()
@@ -31,10 +35,18 @@ public class UIScript : MonoBehaviour
         depthslider.value = 1f - pheight;
     }
 
-    void NewTools()
+    public void NewTools(bool pick = false, bool shovel = false)
     {
         //call this when the player's tools get upgraded
-        picklogo.sprite = Resources.Load<Sprite>("");
-        shovelogo.sprite = Resources.Load<Sprite>("");
+        if (pick && picknum < 3)
+        {
+            picknum += 1;
+            picklogo.sprite = tools[picknum];
+        }
+        if (shovel && shovelnum < 6)
+        {
+            shovelnum += 1;
+            shovelogo.sprite = tools[shovelnum];
+        }
     }
 }
