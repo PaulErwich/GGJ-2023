@@ -29,22 +29,22 @@ public class MessageHandler : MonoBehaviour
     private void Start()
     {
         _headerText = _headerGameObject.GetComponent<TextMeshProUGUI>();
-        _descriptionText = _descriptionGameObject.GetComponent<TextMeshProUGUI>();
-        
+        _descriptionText = _descriptionGameObject.GetComponent<TextMeshProUGUI>(); 
+        _animator = GameObject.FindGameObjectWithTag("Message").GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            _animator = GameObject.FindGameObjectWithTag("Message").GetComponent<Animator>();
-            _animator.SetBool("ShowMessage", true);
-        }
+        // if (Input.GetKeyDown(KeyCode.A))
+        // {
+        //     _animator = GameObject.FindGameObjectWithTag("Message").GetComponent<Animator>();
+        //     _animator.SetBool("ShowMessage", true);
+        // }
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            StartCoroutine(UpdateMessageCoroutine("T-Rex", "This is the description"));
+            UpdateMessageContent("T-Rex", "This is the description");
         }
 
         if (!GameObject.FindGameObjectWithTag("Canvas") && !_canvasFound) return;
@@ -52,15 +52,9 @@ public class MessageHandler : MonoBehaviour
         _canvasFound = true;
     }
 
-    public void CreateMessage()
-    {
-        Instantiate(_messagePrefab, Vector3.zero, Quaternion.identity, _canvas.transform);
-    }
-
     public void UpdateMessageContent(string header, string description)
     {
-        _headerText.text = header;
-        _descriptionText.text = description;
+        StartCoroutine(UpdateMessageCoroutine(header, description));
     }
 
 
@@ -68,7 +62,8 @@ public class MessageHandler : MonoBehaviour
     {
         _animator.SetBool("ShowMessage", false);
         yield return new WaitForSeconds(1.2f);
-        UpdateMessageContent(header, description);
+        _headerText.text = header;
+        _descriptionText.text = description;
         _animator.SetBool("ShowMessage", true);
     }
 }

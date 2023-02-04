@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
     private Animator _animator;
     private SpriteRenderer _spriteRenderer;
 
+    public GameObject hit_ground;
+
     private void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -113,10 +115,22 @@ public class PlayerController : MonoBehaviour
         _animator.SetBool("Mining_Pickaxe", clicking_input.ReadValue<Single>().Equals(1));
     }
 
-    private void OnCollisionEnter2D()
+    private void OnCollisionEnter2D(Collision2D col)
     {
         _animator.SetBool("Flying", false);
+        
+        // Test collision
+        
+        foreach (ContactPoint2D contact in col.contacts)
+        {
+            Vector2 hitPoint = contact.point;
+            Instantiate(hit_ground, new Vector3(hitPoint.x, hitPoint.y - 0.07f, -0.1f), Quaternion.identity);
+        }
+        
         // need to check if other collider belongs to floor.
         jump_count = 0;
+        
+
+        
     }
 }
