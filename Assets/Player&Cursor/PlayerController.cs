@@ -23,12 +23,19 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         rb2d = GetComponent<Rigidbody2D>();
         move_input = InputManager.Instance.my_input_actions.ActionMap.PlayerMovement;
         cursor_move_input = InputManager.Instance.my_input_actions.ActionMap.CursorMovement;
         clicking_input = InputManager.Instance.my_input_actions.ActionMap.Click;
         InputManager.Instance.my_input_actions.ActionMap.Fly.started += fly;
+        InputManager.Instance.my_input_actions.ActionMap.SnapCursor.started += snapCursor;
+    }
+
+    private void Update()
+    {
+        cursor_object.transform.position += new Vector3((cursor_move_input.ReadValue<Vector2>().x /100), (cursor_move_input.ReadValue<Vector2>().y/100), 0.0f);
     }
 
     private void FixedUpdate()
@@ -61,10 +68,11 @@ public class PlayerController : MonoBehaviour
 
     private void moveCursor()
     {
-        cursor_object.transform.position = new Vector3((cursor_move_input.ReadValue<Vector2>().x /100), (cursor_move_input.ReadValue<Vector2>().y / 100), 0.0f);
 
+        
         //cursor_object.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0.0f));
         //cursor_object.transform.position = new Vector3(cursor_object.transform.position.x, cursor_object.transform.position.y, 0.0f);
+        
     }
 
     private void fly(InputAction.CallbackContext context)
@@ -86,6 +94,11 @@ public class PlayerController : MonoBehaviour
             rb2d.AddForce(Vector2.up * flight_impulse_magnitude, ForceMode2D.Impulse);
             jump_count++;
         }
+    }
+
+    private void snapCursor(InputAction.CallbackContext context)
+    {
+        cursor_object.transform.position = transform.position;
     }
 
     private void dig()

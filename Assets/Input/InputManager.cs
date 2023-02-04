@@ -6,6 +6,7 @@ using Packages.Rider.Editor.UnitTesting;
 using Unity.Burst;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
