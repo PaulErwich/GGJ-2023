@@ -2,23 +2,31 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
+    
+    Vector3 mousePosition, targetPosition;
     private float speed_multiplier = 0.05f;
     private float flight_impulse_magnitude = 4.0f;
     private InputAction move_input;
     private InputAction cursor_move_input;
     private InputAction clicking_input;
     private Rigidbody2D rb2d;
+    public float click_timer = 0;
+
+    [SerializeField] private Camera cam;
+    [SerializeField] private GameObject block;
 
     private int jump_count = 0;
     private int max_jump_count = 3;
-    private bool isflying = true;
+
 
     private void Start()
     {
@@ -27,6 +35,11 @@ public class PlayerController : MonoBehaviour
         cursor_move_input = InputManager.Instance.my_input_actions.ActionMap.CursorMovement;
         clicking_input = InputManager.Instance.my_input_actions.ActionMap.Click;
         InputManager.Instance.my_input_actions.ActionMap.Fly.started += fly;
+    }
+
+    private void Update()
+    {
+        dig();
     }
 
     private void FixedUpdate()
@@ -79,7 +92,30 @@ public class PlayerController : MonoBehaviour
 
     private void dig()
     {
-        
+        Debug.Log("Running");
+        if (clicking_input.ReadValue<Single>() == 1)
+        {
+            Debug.Log("mouse down");
+            RaycastHit2D hit = Physics2D.Raycast(cam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            
+            if (hit.collider != null)
+            {
+                click_timer += 1.0f * Time.deltaTime;
+                if (click_timer >= 2)
+                {
+                    if (hit.collider.gameObject == block) Destroy(block);
+                    Debug.Log("HIT");
+                    Debug.Log(click_timer);
+                    click_timer = 0;
+                    
+                }
+            }
+        }
+
+        if (clicking_input.ReadValue<Single>() == 0)
+        {
+            click_timer = 0;
+        }
     }
 
     private void OnCollisionEnter2D()
