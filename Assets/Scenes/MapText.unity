@@ -238,6 +238,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   map_handler: {fileID: 1377011424}
   block_prefab: {fileID: 2533086882388076299, guid: 69a0a2368d938474aa03950876cc3e99, type: 3}
+  sky_layer: {fileID: 0}
+  layer1: {fileID: 0}
+  layer2: {fileID: 0}
+  layer3: {fileID: 0}
+  layer4: {fileID: 0}
+  layer5: {fileID: 0}
+  layer6: {fileID: 0}
+  layer7: {fileID: 0}
+  layer8: {fileID: 0}
+  bedrock_layer: {fileID: 0}
+  n_of_layers: 5
   block_size: 1
 --- !u!4 &1344669543
 Transform:
@@ -302,10 +313,13 @@ MonoBehaviour:
   sky_height: 16
   layer_height_min: 24
   layer_height_max: 32
-  bedrock_height: 8
-  n_of_layers: 5
+  bedrock_height: 13
+  n_of_layers: 3
   intensity: 0.3
   map_size_x: 0
   map_size_y: 0
-  merge_intensity: 0.3
-  merge_section: 8
+  merge_intensity_first: 23
+  merge_intensity_min: 0.3
+  merge_intensity_max: 0.4
+  merge_section_min: 10
+  merge_section_max: 12

@@ -8,30 +8,28 @@ public class MapRender : MonoBehaviour
 {
     public GameObject map_handler;
     public GameObject block_prefab;
+
+    public GameObject sky_layer = null;
+    public GameObject layer1 = null;
+    public GameObject layer2 = null;
+    public GameObject layer3 = null;
+    public GameObject layer4 = null;
+    public GameObject layer5 = null;
+    public GameObject layer6 = null;
+    public GameObject layer7 = null;
+    public GameObject layer8 = null;
+    public GameObject bedrock_layer = null;
     
-    public int[,] world_map;
-    public int block_size = 16;
+    public int n_of_layers = 0;
+
+    private int[,] world_map;
+    public int block_size = 1;
 
     private void Awake()
     {
         var handler = map_handler.GetComponent<MapHandler>();
+        handler.n_of_layers = n_of_layers;
         world_map = handler.GenerateMap();
-        
-        Debug.Log(world_map.GetLength(0));
-        Debug.Log(world_map.GetLength(1));
-
-        string debug_matrix = " ";
-        
-        for (int y = 0; y < world_map.GetLength(1); y++)
-        {
-            for (int x = 0; x < world_map.GetLength(0); x++)
-            {
-                string tile = "[" + world_map[x, y] + "]";
-                debug_matrix += tile;
-            }
-        }
-        
-        Debug.Log(debug_matrix);
         RenderMap();
     }
 
