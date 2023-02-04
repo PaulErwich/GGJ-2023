@@ -1,0 +1,37 @@
+{
+  "Cenozoic": 
+  {
+    "AllPeriods": 
+    {
+      "AllLocations": 
+      {
+        "" : "",
+        "" : "",
+        "" : "",
+        "" : ""
+      }
+    }
+  },
+  
+  "Mesozoic": 
+  {
+    "Cretaceous": 
+    {
+      "AllLocations": 
+      {
+        "Iguanodon": "",
+        "" : ""
+      }
+    },
+    
+    "Jurassic": 
+    {
+      "AllLocations": 
+      {
+        "" : ""
+      }
+    },
+    "Triassic": {
+    }
+  }
+}
