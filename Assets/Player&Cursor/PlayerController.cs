@@ -9,6 +9,8 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
+    public GameObject cursor_object;
+    
     private float speed_multiplier = 0.05f;
     private float flight_impulse_magnitude = 4.0f;
     private InputAction move_input;
@@ -31,6 +33,8 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         move();
+        cursor_object.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0.0f));
+        cursor_object.transform.position = new Vector3(cursor_object.transform.position.x, cursor_object.transform.position.y, 0.0f);
     }
 
     private void move()
