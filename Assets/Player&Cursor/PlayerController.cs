@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        Cursor.visible = false;
         rb2d = GetComponent<Rigidbody2D>();
         move_input = InputManager.Instance.my_input_actions.ActionMap.PlayerMovement;
         cursor_move_input = InputManager.Instance.my_input_actions.ActionMap.CursorMovement;
@@ -33,8 +34,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         move();
-        cursor_object.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0.0f));
-        cursor_object.transform.position = new Vector3(cursor_object.transform.position.x, cursor_object.transform.position.y, 0.0f);
+        moveCursor();
     }
 
     private void move()
@@ -57,6 +57,14 @@ public class PlayerController : MonoBehaviour
             rb2d.velocity = new Vector2 (new_Horizontal_velocity, rb2d.velocity.y);
         }
         */
+    }
+
+    private void moveCursor()
+    {
+        cursor_object.transform.position = new Vector3((cursor_move_input.ReadValue<Vector2>().x /100), (cursor_move_input.ReadValue<Vector2>().y / 100), 0.0f);
+
+        //cursor_object.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0.0f));
+        //cursor_object.transform.position = new Vector3(cursor_object.transform.position.x, cursor_object.transform.position.y, 0.0f);
     }
 
     private void fly(InputAction.CallbackContext context)
