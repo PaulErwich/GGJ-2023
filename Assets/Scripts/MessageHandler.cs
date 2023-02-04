@@ -57,7 +57,6 @@ public class MessageHandler : MonoBehaviour
         StartCoroutine(UpdateMessageCoroutine(header, description));
     }
 
-
     IEnumerator UpdateMessageCoroutine(string header, string description)
     {
         _animator.SetBool("ShowMessage", false);
@@ -65,5 +64,10 @@ public class MessageHandler : MonoBehaviour
         _headerText.text = header;
         _descriptionText.text = description;
         _animator.SetBool("ShowMessage", true);
+    }
+
+    public void CloseMessage()
+    {
+        _animator.SetBool("ShowMessage", false);
     }
 }

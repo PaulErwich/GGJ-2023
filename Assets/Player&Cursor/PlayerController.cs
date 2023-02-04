@@ -47,7 +47,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        cursor_object.transform.position += new Vector3((cursor_move_input.ReadValue<Vector2>().x /100), (cursor_move_input.ReadValue<Vector2>().y/100), 0.0f);
+        cursor_object.transform.position += new Vector3((cursor_move_input.ReadValue<Vector2>().x /100), (cursor_move_input.ReadValue<Vector2>().y/100), 0);
+        cursor_object.transform.position = new Vector3(cursor_object.transform.position.x, cursor_object.transform.position.y, 1.0f);
     }
 
     private void FixedUpdate()
