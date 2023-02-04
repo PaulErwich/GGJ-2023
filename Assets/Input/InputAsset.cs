@@ -134,7 +134,7 @@ public partial class @InputAsset : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""ad453451-4ef2-4455-87f5-3ace77735119"",
-                    ""path"": ""<Mouse>/position"",
+                    ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
                     ""processors"": ""NormalizeVector2"",
                     ""groups"": """",
