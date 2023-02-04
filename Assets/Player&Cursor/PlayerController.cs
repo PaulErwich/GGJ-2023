@@ -120,17 +120,18 @@ public class PlayerController : MonoBehaviour
         _animator.SetBool("Flying", false);
         
         // Test collision
+        spawnDustOnCollision(col);
         
+        // need to check if other collider belongs to floor.
+        jump_count = 0;
+    }
+
+    void spawnDustOnCollision(Collision2D col)
+    {
         foreach (ContactPoint2D contact in col.contacts)
         {
             Vector2 hitPoint = contact.point;
             Instantiate(hit_ground, new Vector3(hitPoint.x, hitPoint.y - 0.07f, -0.1f), Quaternion.identity);
         }
-        
-        // need to check if other collider belongs to floor.
-        jump_count = 0;
-        
-
-        
     }
 }
