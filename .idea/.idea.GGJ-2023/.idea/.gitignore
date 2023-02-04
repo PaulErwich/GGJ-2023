@@ -1,11 +1,20 @@
+<<<<<<< HEAD
+=======
+/projectSettingsUpdater.xml
+>>>>>>> Jade
 ﻿# Default ignored files
 /shelf/
 /workspace.xml
 # Rider ignored files
 /.idea.GGJ-2023.iml
 /modules.xml
+<<<<<<< HEAD
 /projectSettingsUpdater.xml
 /contentModel.xml
+=======
+/contentModel.xml
+/projectSettingsUpdater.xml
+>>>>>>> Jade
 # Editor-based HTTP Client requests
 /httpRequests/
 # Datasource local storage ignored files
