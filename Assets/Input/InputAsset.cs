@@ -53,6 +53,15 @@ public partial class @InputAsset : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Fly"",
+                    ""type"": ""Button"",
+                    ""id"": ""63874344-f0a3-443c-bdf0-88a9a514a559"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -165,6 +174,28 @@ public partial class @InputAsset : IInputActionCollection2, IDisposable
                     ""action"": ""Click"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3e985e31-b67a-4e0c-ab32-52cf66c45b84"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fly"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6e2b3416-f43a-4a15-9d47-c80a47d9a3f0"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fly"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -176,6 +207,7 @@ public partial class @InputAsset : IInputActionCollection2, IDisposable
         m_ActionMap_PlayerMovement = m_ActionMap.FindAction("PlayerMovement", throwIfNotFound: true);
         m_ActionMap_CursorMovement = m_ActionMap.FindAction("CursorMovement", throwIfNotFound: true);
         m_ActionMap_Click = m_ActionMap.FindAction("Click", throwIfNotFound: true);
+        m_ActionMap_Fly = m_ActionMap.FindAction("Fly", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -238,6 +270,7 @@ public partial class @InputAsset : IInputActionCollection2, IDisposable
     private readonly InputAction m_ActionMap_PlayerMovement;
     private readonly InputAction m_ActionMap_CursorMovement;
     private readonly InputAction m_ActionMap_Click;
+    private readonly InputAction m_ActionMap_Fly;
     public struct ActionMapActions
     {
         private @InputAsset m_Wrapper;
@@ -245,6 +278,7 @@ public partial class @InputAsset : IInputActionCollection2, IDisposable
         public InputAction @PlayerMovement => m_Wrapper.m_ActionMap_PlayerMovement;
         public InputAction @CursorMovement => m_Wrapper.m_ActionMap_CursorMovement;
         public InputAction @Click => m_Wrapper.m_ActionMap_Click;
+        public InputAction @Fly => m_Wrapper.m_ActionMap_Fly;
         public InputActionMap Get() { return m_Wrapper.m_ActionMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -263,6 +297,9 @@ public partial class @InputAsset : IInputActionCollection2, IDisposable
                 @Click.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnClick;
                 @Click.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnClick;
                 @Click.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnClick;
+                @Fly.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnFly;
+                @Fly.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnFly;
+                @Fly.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnFly;
             }
             m_Wrapper.m_ActionMapActionsCallbackInterface = instance;
             if (instance != null)
@@ -276,6 +313,9 @@ public partial class @InputAsset : IInputActionCollection2, IDisposable
                 @Click.started += instance.OnClick;
                 @Click.performed += instance.OnClick;
                 @Click.canceled += instance.OnClick;
+                @Fly.started += instance.OnFly;
+                @Fly.performed += instance.OnFly;
+                @Fly.canceled += instance.OnFly;
             }
         }
     }
@@ -285,5 +325,6 @@ public partial class @InputAsset : IInputActionCollection2, IDisposable
         void OnPlayerMovement(InputAction.CallbackContext context);
         void OnCursorMovement(InputAction.CallbackContext context);
         void OnClick(InputAction.CallbackContext context);
+        void OnFly(InputAction.CallbackContext context);
     }
 }
