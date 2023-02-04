@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Class generates a perlin noise map using a X, Y and a scale
-public static class PerlinNoise
+public static class PerlinNoiseGen
 {
     public static float[,] GenerateNoiseMap(int map_width, int map_height, float scale)
     {
