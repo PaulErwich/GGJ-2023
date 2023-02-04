@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,20 +10,29 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public GameObject cursor_object;
-    
-    private float speed_multiplier = 0.05f;
-    private float flight_impulse_magnitude = 4.0f;
+    [SerializeField]private float speed_multiplier = 0.05f;
+    [SerializeField]private float flight_impulse_magnitude = 4.0f;
     private InputAction move_input;
     private InputAction cursor_move_input;
     private InputAction clicking_input;
     private Rigidbody2D rb2d;
 
     private int jump_count = 0;
-    private int max_jump_count = 3;
+    [SerializeField]private int max_jump_count = 10;
+    
+    
+    // Animator - Luryann
+    private Animator _animator;
+    private SpriteRenderer _spriteRenderer;
+
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
     private void Start()
     {
-        Cursor.visible = false;
         rb2d = GetComponent<Rigidbody2D>();
         move_input = InputManager.Instance.my_input_actions.ActionMap.PlayerMovement;
         cursor_move_input = InputManager.Instance.my_input_actions.ActionMap.CursorMovement;
@@ -35,10 +44,21 @@ public class PlayerController : MonoBehaviour
     {
         move();
         moveCursor();
+        dig();
     }
 
     private void move()
     {
+        // Walk animation
+        _animator.SetFloat("Moving", math.abs(move_input.ReadValue<Vector2>().x));
+        
+        // Flip sprites
+        if (math.abs(move_input.ReadValue<Vector2>().x) > 0 )
+        {
+            _spriteRenderer.flipX = move_input.ReadValue<Vector2>().x < 0;
+        }
+        
+        
         if (move_input.ReadValue<Vector2>().x != 0)
         {
             rb2d.transform.Translate(new Vector2(move_input.ReadValue<Vector2>().x, 0.0f) * speed_multiplier);
@@ -80,7 +100,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log(percentage_difference);
         }
         */
-
+        _animator.SetBool("Flying", true);
         if (jump_count < max_jump_count)
         {
             rb2d.AddForce(Vector2.up * flight_impulse_magnitude, ForceMode2D.Impulse);
@@ -90,11 +110,12 @@ public class PlayerController : MonoBehaviour
 
     private void dig()
     {
-        
+        _animator.SetBool("Mining_Pickaxe", clicking_input.ReadValue<Single>().Equals(1));
     }
 
     private void OnCollisionEnter2D()
     {
+        _animator.SetBool("Flying", false);
         // need to check if other collider belongs to floor.
         jump_count = 0;
     }
