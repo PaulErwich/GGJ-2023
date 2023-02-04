@@ -7,6 +7,8 @@ public class onPartSystem : MonoBehaviour
 
     private ParticleSystem p_sys;
 
+    
+
     // Start is called before the first frame update
     void Start()
     {
