@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         move();
+        dig();
     }
 
     private void move()
@@ -51,7 +52,11 @@ public class PlayerController : MonoBehaviour
         _animator.SetFloat("Moving", math.abs(move_input.ReadValue<Vector2>().x));
         
         // Flip sprites
-        _spriteRenderer.flipX = move_input.ReadValue<Vector2>().x < 0;
+        if (math.abs(move_input.ReadValue<Vector2>().x) > 0 )
+        {
+            _spriteRenderer.flipX = move_input.ReadValue<Vector2>().x < 0;
+        }
+        
         
         if (move_input.ReadValue<Vector2>().x != 0)
         {
@@ -96,7 +101,7 @@ public class PlayerController : MonoBehaviour
 
     private void dig()
     {
-        
+        _animator.SetBool("Mining_Pickaxe", clicking_input.ReadValue<Single>().Equals(1));
     }
 
     private void OnCollisionEnter2D()
