@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
+//using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,6 +23,7 @@ public class UIScript : MonoBehaviour
     // ---------- //
     void Start()
     {
+
         depthslider = gameObject.transform.Find("Depth_slider").GetComponent<Slider>();
         depthslider.value = 1f; //starts the player at the top of the depth slider.
         

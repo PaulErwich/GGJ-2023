@@ -87,11 +87,15 @@ public class MapHandler : MonoBehaviour
         MergeLayers(layers_height_start[n_of_layers], j+1,255);
 
         //FOSSIL CREATION
-        for (int i = 0; i < n_of_layers; i++)
-        {
-            FossilMergingLayer(1.9f, 0.70f, 67+i, i);
-        }
-        
+        //for (int i = 0; i < n_of_layers; i++)
+        //{
+        //    FossilMergingLayer(1.9f, 0.70f, 67+i, i);
+        //}
+
+        FossilMergingLayer(1.9f, 0.80f, 67, 0);
+        FossilMergingLayer(1.9f, 0.75f, 68, 1);
+        FossilMergingLayer(1.9f, 0.70f, 69, 2);
+
         //Caves Gen
         LayerGenerator.GeneratesCaves(0.6f,5, world_map, sky_height + 6, bedrock_height);
         

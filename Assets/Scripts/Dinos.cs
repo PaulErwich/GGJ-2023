@@ -14,5 +14,6 @@ public class Dinos : MonoBehaviour
     private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _BoxCollider2D = this.GetComponent<BoxCollider2D>();
     }
 }

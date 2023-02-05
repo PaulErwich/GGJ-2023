@@ -6,6 +6,7 @@ using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Tilemaps;
 using Random = Unity.Mathematics.Random;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -31,9 +32,14 @@ public class PlayerController : MonoBehaviour
     // Animator - Luryann
     private Animator _animator;
     private SpriteRenderer _spriteRenderer;
+    public MessageHandler MessageHandler;
+    private ArtefactFactManager _artefactFactManager;
 
     public GameObject hit_ground;
     public GameObject torch;
+
+    public GameObject grid;
+    private Tilemap tile_map;
     
     // Audio- Nathan
     private AudioSource _sfx;
@@ -43,13 +49,16 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         resetCursor();
-
+        MessageHandler = GetComponent<MessageHandler>();
+        _artefactFactManager = FindObjectOfType<ArtefactFactManager>();
         _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
 
         _sfx = GetComponent<AudioSource>();
         mines = Resources.LoadAll<AudioClip>("Audio/Mining");
         digs = Resources.LoadAll<AudioClip>("Audio/Digging");
+
+        tile_map = grid.GetComponentInChildren<Tilemap>();
     }
 
     private void Start()
@@ -61,6 +70,9 @@ public class PlayerController : MonoBehaviour
         InputManager.Instance.my_input_actions.ActionMap.Fly.started += fly;
         InputManager.Instance.my_input_actions.ActionMap.SnapCursor.started += snapCursor;
         InputManager.Instance.my_input_actions.ActionMap.PlaceTorch.started += placeTorch;
+        InputManager.Instance.my_input_actions.ActionMap.CloseMessage.started += CloseMessage;
+
+        
     }
 
     private void Update()
@@ -168,9 +180,13 @@ public class PlayerController : MonoBehaviour
                     if (hit.collider.gameObject.tag == "Block")
                     {
                         var thing = hit.collider.gameObject.transform.position;
+                        float num_x = thing.x / 1.12f;
+                        float num_y = thing.y / 1.12f;
+
                         Vector3Int hitInt = new Vector3Int(
-                            Mathf.RoundToInt(thing.x), Mathf.RoundToInt(thing.x), Mathf.RoundToInt(thing.x));
+                            Mathf.RoundToInt(thing.x - (0.12f * num_x)), Mathf.RoundToInt(thing.y - (0.12f * num_y)), Mathf.RoundToInt(thing.z));
                         Camera.main.GetComponent<Blocks>().RemoveBlock(hitInt);
+                        MessageHandler.UpdateMessageContent(hit.collider.gameObject.GetComponent<Dinos>().DinoID, _artefactFactManager.getDescription(hit.collider.gameObject.GetComponent<Dinos>().DinoID));
                         Destroy(hit.collider.gameObject);
                     }
 
@@ -219,6 +235,11 @@ public class PlayerController : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
+    }
+
+    private void CloseMessage(InputAction.CallbackContext context)
+    {
+        MessageHandler.CloseMessage();
     }
 
     private void placeTorch(InputAction.CallbackContext context)

@@ -62,6 +62,6 @@ public class SpriteMaskManager : MonoBehaviour
             cursorFeather.enabled = false;
         }
 
-        mainCamera.backgroundColor = new Color(0.1921569f,0.3019608f,0.4745098f,1);
+        //mainCamera.backgroundColor = new Color(0.1921569f,0.3019608f,0.4745098f,1);
     }
 }
