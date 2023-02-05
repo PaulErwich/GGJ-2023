@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Random = Unity.Mathematics.Random;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
@@ -32,11 +33,20 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
 
     public GameObject hit_ground;
+    
+    // Audio- Nathan
+    private AudioSource _sfx;
+    private AudioClip[] mines;
+    private AudioClip[] digs;
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+
+        _sfx = GetComponent<AudioSource>();
+        mines = Resources.LoadAll<AudioClip>("Audio/Mining");
+        digs = Resources.LoadAll<AudioClip>("Audio/Digging");
     }
 
     private void Start()
@@ -139,6 +149,11 @@ public class PlayerController : MonoBehaviour
         if (clicking_input.ReadValue<Single>() == 1)
         {
             Debug.Log("mouse down");
+            if (_sfx.isPlaying == false)
+            {
+                _sfx.clip = mines[0];
+                _sfx.Play();
+            }
             RaycastHit2D hit = Physics2D.Raycast(cam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             
             if (hit.collider != null)
@@ -161,6 +176,7 @@ public class PlayerController : MonoBehaviour
         if (clicking_input.ReadValue<Single>() == 0)
         {
             click_timer = 0;
+            _sfx.Stop();
         }
     }
 

@@ -6,6 +6,7 @@ public class Music : MonoBehaviour
 {
     private AudioSource audio;
     private bool began;
+    private int layernum;
 
     private AudioClip[] songs;
     void Start()
@@ -19,7 +20,8 @@ public class Music : MonoBehaviour
     {
         if (Input.anyKey && began == false)
         {
-            audio.clip = songs[1];
+            layernum = 1;
+            audio.clip = songs[layernum];
             audio.Play();
             Time.timeScale = 1;
             gameObject.transform.Find("Title").gameObject.SetActive(false);
@@ -29,7 +31,15 @@ public class Music : MonoBehaviour
 
     void Deeper()
     {
-        audio.clip = Resources.Load<AudioClip>("Audio/Main_theme_C");
+        layernum += 1;
+        audio.clip = songs[layernum];
+        audio.Play();
+    }
+
+    void Higher()
+    {
+        layernum -= 1;
+        audio.clip = songs[layernum];
         audio.Play();
     }
 }
