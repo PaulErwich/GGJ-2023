@@ -1,37 +1,44 @@
 {
-  "Cenozoic": 
-  {
-    "AllPeriods": 
-    {
-      "AllLocations": 
-      {
-        "" : "",
-        "" : "",
-        "" : "",
-        "" : ""
-      }
-    }
-  },
+  "Descriptions" :
+  [
+    {"Velociraptor" : "Late Cretaceous (74-70 million years ago)\n\nVelociraptors have been featured and popularised in films such as the Jurassic Park franchise, but their appearance there is much larger than their actual size, which was closer to that of a turkey. They were likely also feathered animals, fossils showing evidence of quill knobs (bumps along the forearm that anchor feathers to bone), which are common in modern birds.\n"},
+    {"Spinosaurus" : "Late Cretaceous (95-70 million years ago)\n\nThis carnivorous dinosaur is only known from partial remains. In 1944, the first discovered fossil set was destroyed when the Munich museum was bombed by British aircraft.\nIt has an estimated mass of 12,000–20,000 kg, with a skull length of 1.75 metres, and a body length of 14-18 metres, making it longer and heavier than the Tyrannosaurus, and the largest known carnivorous dinosaur. \n"},
+    {"Corythosaurus" : "Late Cretaceous (76-74 million years ago)\n\nCorythosaurus was a herbivorous dinosaur, known from many complete specimens and over twenty skulls. Its skull had a tall crest, similar to that of a modern cassowary bird, and this is what lends it its name; ‘Corytho’ referring to Corinthian helmets. \n\nThis crest is thought to have been used for vocalisation, its construction compared to that of a trombone. Sound waves would travel through its many chambers, allowing for an amplified sound that could have been used as a mating call, or a warning.\n"},
+    {"Irritator" : "Early Cretaceous (112-99 million years ago)\n\nIrritator was one of the smallest spinosaurids known, estimated at between 6 and 8 metres in length, and around 1 tonne in weight. \nIt is known from a nearly complete skull sold to the State Museum of Natural History Stuttgart by fossil dealers. Its name comes from the word ‘irritation’, a description of the scientists’ feelings when they found the dealers had heavily damaged the skull and altered it with plaster.\n"},
+    {"Iguanodon" : "Early Cretaceous (140-110 million years ago)\n\nIguanodon fossils have been found in the United Kingdom and many parts of Europe since before 1825. Its most notable feature is its thumb spikes, misplaced in earlier reconstructions onto the tip of the nose or the back of the feet. These spikes are generally interpreted as a close-quarter stiletto-like defence weapon against predators, although it could also have been used to break into seeds and fruits, as it was a herbivorous animal.\n"},
+    {"Apatosaurus" : "Late Jurassic (154-145 million years ago)\n\nYou have likely heard of these dinosaurs before, but under a different name.\nAmerican palaeontologist Othniel C. Marsh found and named two fossil sets of these species two years apart, an incomplete juvenile  in 1877, and a more complete larger specimen in 1879. Due to the differences between these discoveries, he believed them to be of entirely different genuses, and named the later find ‘Brontosaurus’.\nIn 1903 these fossils were reexamined, and found to be similar enough to be of the same genus. As the older name takes precedent, this dinosaur is known scientifically as ‘Apatosaurus’, although Brontosaurus is still the more publically recognisable name.\n"},
+    {"Diplodocus" : "Late Jurassic (155-145 million years ago)\n\nDiplodocus is considered one of the most easily recognisable dinosaurs with its long neck and tail and four sturdy legs. For many years, it was the largest dinosaur known\nThey are often rendered with their necks held upright, but studies on the morphology of their necks have concluded that the neutral position of their necks was more likely horizontal, in line with the rest of their bodies. \nIt is theorised to be this way as their long necks would have necessitated a heart 1/10th of its entire body weight to supply blood to the brain, something not required if their heads weren’t elevated.\n"},
+    {"Archaeopteryx" : "Late Jurassic (147 million years ago)\n\nArchaeopteryx was a small bird-like dinosaur, growing between the size of a magpie and a raven. Despite its feathers, wings and inferred ability to fly or glide, they have more in common with other small dinosaurs of the time than modern birds. However, they are still generally accepted as the oldest known bird, serving as a candidate of a transitional fossil between non-avian dinosaurs and birds. \n"},
+    {"Dilophosaurus" : "Early Jurassic (190 million years ago)\n\nDilophosaurus are best known for their appearance in the Jurassic Park films, dramatised with an ability to spit venom and a large neck-frill. Neither of these are likely real features of the dinosaur, especially the neck frill, which would have left evidence in fossils of a rigid structure to hold it, or markings at the places where muscles had moved it.\nThe frill was likely inspired by the frill-necked lizard, a modern species of lizard native to northern Australia and  southern New Guinea. \n"},
+    {"Mussaurus" : "Late Triassic (221-210 million years ago)\n\nThe name ‘Mussaurus’ means ‘mouse lizard’, and comes from the fact that, at first, only the skeletons of infant and juvenile examples of the species were found. This led to the belief that the dinosaur was naturally very small, however, more recently-discovered adult specimens show that they possibly reached 6 metres in length and weighed more than 1,000 kilograms.\n"},
+    {"Staurikosaurus" : "Late Triassic (227-221 million years ago)\n\nStaurikosaurus is described as a small, agile bipedal predator. The teeth that have been found strongly suggest a carnivorous diet, being serrated and caudally curved (the top of the tooth being curved back toward the throat). \nThe mandible suggests that a sliding joint in the jaw allowed it to move backwards and forwards, so smaller prey could be worked backwards towards Staurikosaurus's throat, aided along by its small, backwards-curving teeth.\n"},
+    {"Eoraptor" : "Late Triassic (228 million years ago)\n\nEoraptor is one of the earliest known species of dinosaur. It is likely to have been a swift sprinter, helping it catch its prey, after which it would use its teeth and claws to tear the prey apart. However, only some of its teeth were curved and saw-edged, suggesting it was omnivorous.\nIts type species name, Eoraptor lunensis, means 'dawn plunderer from the Valley of the Moon'- a reference to its place of discovery: the Valle de la Luna in Argentina. \n"}
+  ],
   
-  "Mesozoic": 
+  "Periods" :
   {
-    "Cretaceous": 
-    {
-      "AllLocations": 
-      {
-        "Iguanodon": "",
-        "" : ""
-      }
-    },
+    "Cretaceous" :
+    [
+      "Velociraptor",
+      "Spinosaurus",
+      "Corythosaurus",
+      "Irritator",
+      "Iguanodon"
+    ],
     
-    "Jurassic": 
-    {
-      "AllLocations": 
-      {
-        "" : ""
-      }
-    },
-    "Triassic": {
-    }
+    "Jurassic" :
+    [
+      "Apatosaurus",
+      "Diplodocus",
+      "Archaeopteryx",
+      "Dilophosaurus"
+    ],
+    
+    "Triassic":
+    [
+      "Mussaurus",
+      "Staurikosaurus",
+      "Eoraptor"
+    ]
   }
 }

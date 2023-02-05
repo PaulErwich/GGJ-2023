@@ -1,18 +1,27 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
+
 
 public class NewBehaviourScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private Dictionary<string, string> descriptions;
+    private Dictionary<string, List<string>> slices;
 
-    // Update is called once per frame
-    void Update()
+    public string json_filepath;
+    private string json_string;
+
+    private void Start()
     {
-        
+        json_string = File.ReadAllText(json_filepath);
+        descriptions = JsonUtility.FromJson<Dictionary<string, string>>(json_filepath);
+        /*
+        foreach (var descriptions in descriptions)
+        {
+            
+        }
+        */
     }
 }
