@@ -71,6 +71,15 @@ public partial class @InputAsset : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PlaceTorch"",
+                    ""type"": ""Button"",
+                    ""id"": ""ef7c1fc9-556d-4984-b717-4096434ee772"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -227,6 +236,28 @@ public partial class @InputAsset : IInputActionCollection2, IDisposable
                     ""action"": ""SnapCursor"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""db6ea19e-e7cd-4543-b307-103c446b2c3c"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PlaceTorch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4e2c9407-42e5-460d-81f9-325d0c3e4551"",
+                    ""path"": ""<XInputController>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PlaceTorch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -240,6 +271,7 @@ public partial class @InputAsset : IInputActionCollection2, IDisposable
         m_ActionMap_Click = m_ActionMap.FindAction("Click", throwIfNotFound: true);
         m_ActionMap_Fly = m_ActionMap.FindAction("Fly", throwIfNotFound: true);
         m_ActionMap_SnapCursor = m_ActionMap.FindAction("SnapCursor", throwIfNotFound: true);
+        m_ActionMap_PlaceTorch = m_ActionMap.FindAction("PlaceTorch", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -304,6 +336,7 @@ public partial class @InputAsset : IInputActionCollection2, IDisposable
     private readonly InputAction m_ActionMap_Click;
     private readonly InputAction m_ActionMap_Fly;
     private readonly InputAction m_ActionMap_SnapCursor;
+    private readonly InputAction m_ActionMap_PlaceTorch;
     public struct ActionMapActions
     {
         private @InputAsset m_Wrapper;
@@ -313,6 +346,7 @@ public partial class @InputAsset : IInputActionCollection2, IDisposable
         public InputAction @Click => m_Wrapper.m_ActionMap_Click;
         public InputAction @Fly => m_Wrapper.m_ActionMap_Fly;
         public InputAction @SnapCursor => m_Wrapper.m_ActionMap_SnapCursor;
+        public InputAction @PlaceTorch => m_Wrapper.m_ActionMap_PlaceTorch;
         public InputActionMap Get() { return m_Wrapper.m_ActionMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -337,6 +371,9 @@ public partial class @InputAsset : IInputActionCollection2, IDisposable
                 @SnapCursor.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnSnapCursor;
                 @SnapCursor.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnSnapCursor;
                 @SnapCursor.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnSnapCursor;
+                @PlaceTorch.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnPlaceTorch;
+                @PlaceTorch.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnPlaceTorch;
+                @PlaceTorch.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnPlaceTorch;
             }
             m_Wrapper.m_ActionMapActionsCallbackInterface = instance;
             if (instance != null)
@@ -356,6 +393,9 @@ public partial class @InputAsset : IInputActionCollection2, IDisposable
                 @SnapCursor.started += instance.OnSnapCursor;
                 @SnapCursor.performed += instance.OnSnapCursor;
                 @SnapCursor.canceled += instance.OnSnapCursor;
+                @PlaceTorch.started += instance.OnPlaceTorch;
+                @PlaceTorch.performed += instance.OnPlaceTorch;
+                @PlaceTorch.canceled += instance.OnPlaceTorch;
             }
         }
     }
@@ -367,5 +407,6 @@ public partial class @InputAsset : IInputActionCollection2, IDisposable
         void OnClick(InputAction.CallbackContext context);
         void OnFly(InputAction.CallbackContext context);
         void OnSnapCursor(InputAction.CallbackContext context);
+        void OnPlaceTorch(InputAction.CallbackContext context);
     }
 }

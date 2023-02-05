@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
 
     public GameObject hit_ground;
+    public GameObject torch;
 
     private void Awake()
     {
@@ -49,6 +50,7 @@ public class PlayerController : MonoBehaviour
         clicking_input = InputManager.Instance.my_input_actions.ActionMap.Click;
         InputManager.Instance.my_input_actions.ActionMap.Fly.started += fly;
         InputManager.Instance.my_input_actions.ActionMap.SnapCursor.started += snapCursor;
+        InputManager.Instance.my_input_actions.ActionMap.PlaceTorch.started += placeTorch;
     }
 
     private void Update()
@@ -197,5 +199,10 @@ public class PlayerController : MonoBehaviour
             Cursor.visible = true;
             Debug.Log("unfocused");
         }
+    }
+
+    private void placeTorch(InputAction.CallbackContext context)
+    {
+        Instantiate(torch, cursor_object.transform.position, quaternion.identity);
     }
 }
