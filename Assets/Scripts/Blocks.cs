@@ -27,4 +27,9 @@ public class Blocks : MonoBehaviour
     {
         Tilemaps.SetTile(pos, TileBase);
     }
+
+    public void RemoveBlock(Vector3Int pos)
+    {
+        Tilemaps.SetTile(pos, null);
+    }
 }
