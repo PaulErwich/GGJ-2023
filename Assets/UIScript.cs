@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,7 @@ public class UIScript : MonoBehaviour
     private Slider depthslider;
     private float pheight;
     private float gameheight = 10f; //can just be a magic number for now.
+    
     // ----------- //
     
     //TOOL LEVELS //
@@ -31,6 +33,14 @@ public class UIScript : MonoBehaviour
     
     void FixedUpdate()
     {
+        if (player.transform.position.y >= gameheight) 
+        {
+            depthslider.enabled = false;
+        }
+        else
+        {
+            depthslider.enabled = true;
+        }
         pheight = Mathf.Abs(player.transform.position.y / gameheight);
         depthslider.value = 1f - pheight;
     }

@@ -47,23 +47,23 @@ public class MapRender : MonoBehaviour
                 switch (world_map[x,y])
                 {
                     case 1:
-                        placed_block.GetComponent<MeshRenderer>().material.color = Color.cyan;
+                        placed_block.GetComponent<SpriteRenderer>().material.color = Color.cyan;
                         break;
                     
                     case 2:
-                        placed_block.GetComponent<MeshRenderer>().material.color = Color.green;
+                        placed_block.GetComponent<SpriteRenderer>().material.color = Color.green;
                         break;
                     
                     case 3:
-                        placed_block.GetComponent<MeshRenderer>().material.color = Color.red;
+                        placed_block.GetComponent<SpriteRenderer>().material.color = Color.red;
                         break;
                     
                     case 4:
-                        placed_block.GetComponent<MeshRenderer>().material.color = Color.magenta;
+                        placed_block.GetComponent<SpriteRenderer>().material.color = Color.magenta;
                         break;
                     
                     default:
-                        placed_block.GetComponent<MeshRenderer>().material.color = Color.black;
+                        placed_block.GetComponent<SpriteRenderer>().material.color = Color.black;
                         break;
                 }
             }
