@@ -80,6 +80,15 @@ public partial class @InputAsset : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CloseMessage"",
+                    ""type"": ""Button"",
+                    ""id"": ""a826b8a5-e3b5-4658-8088-cfa89d6e595a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -258,6 +267,28 @@ public partial class @InputAsset : IInputActionCollection2, IDisposable
                     ""action"": ""PlaceTorch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""91f4f496-5ff7-4f77-bdd1-0c3eda6c2d09"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CloseMessage"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4e348fa3-f0b2-4f1b-819f-95641a559dc0"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CloseMessage"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -272,6 +303,7 @@ public partial class @InputAsset : IInputActionCollection2, IDisposable
         m_ActionMap_Fly = m_ActionMap.FindAction("Fly", throwIfNotFound: true);
         m_ActionMap_SnapCursor = m_ActionMap.FindAction("SnapCursor", throwIfNotFound: true);
         m_ActionMap_PlaceTorch = m_ActionMap.FindAction("PlaceTorch", throwIfNotFound: true);
+        m_ActionMap_CloseMessage = m_ActionMap.FindAction("CloseMessage", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -337,6 +369,7 @@ public partial class @InputAsset : IInputActionCollection2, IDisposable
     private readonly InputAction m_ActionMap_Fly;
     private readonly InputAction m_ActionMap_SnapCursor;
     private readonly InputAction m_ActionMap_PlaceTorch;
+    private readonly InputAction m_ActionMap_CloseMessage;
     public struct ActionMapActions
     {
         private @InputAsset m_Wrapper;
@@ -347,6 +380,7 @@ public partial class @InputAsset : IInputActionCollection2, IDisposable
         public InputAction @Fly => m_Wrapper.m_ActionMap_Fly;
         public InputAction @SnapCursor => m_Wrapper.m_ActionMap_SnapCursor;
         public InputAction @PlaceTorch => m_Wrapper.m_ActionMap_PlaceTorch;
+        public InputAction @CloseMessage => m_Wrapper.m_ActionMap_CloseMessage;
         public InputActionMap Get() { return m_Wrapper.m_ActionMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -374,6 +408,9 @@ public partial class @InputAsset : IInputActionCollection2, IDisposable
                 @PlaceTorch.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnPlaceTorch;
                 @PlaceTorch.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnPlaceTorch;
                 @PlaceTorch.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnPlaceTorch;
+                @CloseMessage.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnCloseMessage;
+                @CloseMessage.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnCloseMessage;
+                @CloseMessage.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnCloseMessage;
             }
             m_Wrapper.m_ActionMapActionsCallbackInterface = instance;
             if (instance != null)
@@ -396,6 +433,9 @@ public partial class @InputAsset : IInputActionCollection2, IDisposable
                 @PlaceTorch.started += instance.OnPlaceTorch;
                 @PlaceTorch.performed += instance.OnPlaceTorch;
                 @PlaceTorch.canceled += instance.OnPlaceTorch;
+                @CloseMessage.started += instance.OnCloseMessage;
+                @CloseMessage.performed += instance.OnCloseMessage;
+                @CloseMessage.canceled += instance.OnCloseMessage;
             }
         }
     }
@@ -408,5 +448,6 @@ public partial class @InputAsset : IInputActionCollection2, IDisposable
         void OnFly(InputAction.CallbackContext context);
         void OnSnapCursor(InputAction.CallbackContext context);
         void OnPlaceTorch(InputAction.CallbackContext context);
+        void OnCloseMessage(InputAction.CallbackContext context);
     }
 }

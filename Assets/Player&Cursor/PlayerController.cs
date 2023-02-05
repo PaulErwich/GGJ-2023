@@ -29,6 +29,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]private int max_jump_count = 10;
     
     // Animator - Luryann
+    public MessageHandler MessageHandler;
+    private ArtefactFactManager _artefactFactManager;
+    
     private Animator _animator;
     private SpriteRenderer _spriteRenderer;
 
@@ -43,7 +46,9 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         resetCursor();
-
+        _artefactFactManager = FindObjectOfType<ArtefactFactManager>();
+        MessageHandler = GetComponent<MessageHandler>();
+        
         _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
 
@@ -61,6 +66,7 @@ public class PlayerController : MonoBehaviour
         InputManager.Instance.my_input_actions.ActionMap.Fly.started += fly;
         InputManager.Instance.my_input_actions.ActionMap.SnapCursor.started += snapCursor;
         InputManager.Instance.my_input_actions.ActionMap.PlaceTorch.started += placeTorch;
+        InputManager.Instance.my_input_actions.ActionMap.CloseMessage.started += CloseMessage;
     }
 
     private void Update()
@@ -95,17 +101,17 @@ public class PlayerController : MonoBehaviour
 
     private void moveCursor()
     {
-        Vector3 potential_new_pos = cursor_object.transform.position + new Vector3((cursor_move_input.ReadValue<Vector2>().x /100), (cursor_move_input.ReadValue<Vector2>().y/100), 0.0f);
+        Vector3 potential_new_pos = cursor_object.transform.position + new Vector3((cursor_move_input.ReadValue<Vector2>().x /100), (cursor_move_input.ReadValue<Vector2>().y/100), -5.0f);
         Vector3 world_space_pos = cam.WorldToViewportPoint(potential_new_pos);
         
         if (world_space_pos.x > 0.0f && world_space_pos.x < 1.0f)
         {
-            cursor_object.transform.position = new Vector3(potential_new_pos.x, cursor_object.transform.position.y, cursor_object.transform.position.z);
+            cursor_object.transform.position = new Vector3(potential_new_pos.x, cursor_object.transform.position.y, -5.0f);
         }
 
         if (world_space_pos.y > 0.0f && world_space_pos.y < 1.0f)
         {
-            cursor_object.transform.position = new Vector3(cursor_object.transform.position.x, potential_new_pos.y, cursor_object.transform.position.z);
+            cursor_object.transform.position = new Vector3(cursor_object.transform.position.x, potential_new_pos.y, -5.0f);
         }
     }
 
@@ -171,7 +177,14 @@ public class PlayerController : MonoBehaviour
                         Vector3Int hitInt = new Vector3Int(
                             Mathf.RoundToInt(thing.x), Mathf.RoundToInt(thing.x), Mathf.RoundToInt(thing.x));
                         Camera.main.GetComponent<Blocks>().RemoveBlock(hitInt);
+                        MessageHandler.UpdateMessageContent(hit.collider.gameObject.GetComponent<Dinos>().DinoID, _artefactFactManager.getDescription(hit.collider.gameObject.GetComponent<Dinos>().DinoID));
                         Destroy(hit.collider.gameObject);
+                    }
+
+                    if (hit.collider.gameObject.tag == "Close")
+                    {
+                        Debug.Log("Close");
+                        
                     }
 
                     click_timer = 0;
@@ -219,6 +232,11 @@ public class PlayerController : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
+    }
+    
+    private void CloseMessage(InputAction.CallbackContext context)
+    {
+        MessageHandler.CloseMessage();
     }
 
     private void placeTorch(InputAction.CallbackContext context)

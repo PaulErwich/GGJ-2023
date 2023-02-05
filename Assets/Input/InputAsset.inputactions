@@ -58,6 +58,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "CloseMessage",
+                    "type": "Button",
+                    "id": "a826b8a5-e3b5-4658-8088-cfa89d6e595a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -234,6 +243,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "PlaceTorch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "91f4f496-5ff7-4f77-bdd1-0c3eda6c2d09",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CloseMessage",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4e348fa3-f0b2-4f1b-819f-95641a559dc0",
+                    "path": "<Gamepad>/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CloseMessage",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
