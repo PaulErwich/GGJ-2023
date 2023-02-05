@@ -43,7 +43,7 @@ public class ArtefactFactManager : MonoBehaviour
     [SerializeField] public TextAsset layers_json_file;
     [SerializeField] private string[] asset_folder_path = {"Assets/Prefabs/BLOCKPREFABS"};
 
-    private void Start()
+    private void Awake()
     {
         Descriptions json_descriptions = JsonUtility.FromJson<Descriptions>(descriptions_json_file.text);
         foreach (Description json_description in json_descriptions.descriptions)
@@ -87,6 +87,7 @@ public class ArtefactFactManager : MonoBehaviour
                 {
                     string path = AssetDatabase.GUIDToAssetPath(identifiers[i]);
                     layer_prefabs.Add(new KeyValuePair<string, GameObject>(bone,AssetDatabase.LoadAssetAtPath<GameObject>(path)));
+                    Debug.Log(layer_count + " " + i);
                 }
             }
             

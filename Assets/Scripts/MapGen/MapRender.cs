@@ -61,7 +61,7 @@ public class MapRender : MonoBehaviour
             for (int y = 0; y < world_map.GetLength(1); y++)
             {
                 Vector3Int tile_pos = new Vector3Int( (int)(-1 * x * block_size), (int)(-1 * y * block_size), 0);
-                Vector3 block_pos = new Vector3( (-1.12f * x * block_size), (-1.12f * y * block_size), 0);
+                Vector3 block_pos = new Vector3( (-1.12f * x * block_size), (-1.12f * y * block_size), 1);
                 
                 blocks_script.PlaceBlock(tile_pos);
                 
