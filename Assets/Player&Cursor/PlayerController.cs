@@ -189,13 +189,11 @@ public class PlayerController : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             resetCursor();
-            Debug.Log("focused");
         }
         else
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-            Debug.Log("unfocused");
         }
     }
 }

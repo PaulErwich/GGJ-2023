@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -39,6 +41,8 @@ public class ArtefactFactManager : MonoBehaviour
     
     [SerializeField] public TextAsset descriptions_json_file;
     [SerializeField] public TextAsset layers_json_file;
+    [SerializeField] private string[] asset_folder_path = {"Assets/Prefabs/BLOCKPREFABS"};
+    [SerializeField] public Dictionary<int, List<GameObject>> test = new Dictionary<int, List<GameObject>>();
 
     private void Start()
     {
@@ -53,6 +57,9 @@ public class ArtefactFactManager : MonoBehaviour
         {
             layers.Add(json_period.Name, json_period.Dinos);
         }
+
+        test = getBlockPrefabs();
+
     }
 
     public string getDescription(string name)
@@ -63,5 +70,31 @@ public class ArtefactFactManager : MonoBehaviour
     public Dictionary<string, string[]> getLayers()
     {
         return layers;
+    }
+
+    public Dictionary<int, List<GameObject>> getBlockPrefabs()
+    {
+        Dictionary<int, List<GameObject>> bones = new Dictionary<int, List<GameObject>>();
+
+        int layer_count = 0;
+        foreach (var layer in layers)
+        {
+            List<GameObject> dinos = new List<GameObject>();
+            
+            foreach (var bone in layer.Value)
+            {
+                string[] identifiers = AssetDatabase.FindAssets(bone, asset_folder_path);
+
+                for (int i = 0; i < identifiers.Length; i++)
+                {
+                    string path = AssetDatabase.GUIDToAssetPath(identifiers[i]);
+                    dinos.Add(AssetDatabase.LoadAssetAtPath<GameObject>(path));
+                }
+            }
+            bones.Add(layer_count, dinos);
+            layer_count++;
+        }
+
+        return bones;
     }
 }
