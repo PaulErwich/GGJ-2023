@@ -19,7 +19,7 @@
                     "type": "Value",
                     "id": "2c6202c7-7990-4063-8a7a-3e0a2f19cc74",
                     "expectedControlType": "Vector2",
-                    "processors": "NormalizeVector2",
+                    "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
                 },
@@ -36,6 +36,15 @@
                     "name": "Fly",
                     "type": "Button",
                     "id": "63874344-f0a3-443c-bdf0-88a9a514a559",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SnapCursor",
+                    "type": "Button",
+                    "id": "ec84131d-5e9b-4c6e-8b13-f0caf0c977d3",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -111,8 +120,8 @@
                 },
                 {
                     "name": "",
-                    "id": "ad453451-4ef2-4455-87f5-3ace77735119",
-                    "path": "<Mouse>/delta",
+                    "id": "eb53303e-182f-4267-b119-f55a4ca2c2c1",
+                    "path": "<Gamepad>/rightStick",
                     "interactions": "",
                     "processors": "NormalizeVector2",
                     "groups": "",
@@ -122,10 +131,10 @@
                 },
                 {
                     "name": "",
-                    "id": "eb53303e-182f-4267-b119-f55a4ca2c2c1",
-                    "path": "<Gamepad>/rightStick",
+                    "id": "c29e0d85-2adc-49c2-9b79-fb5088a5b89d",
+                    "path": "<Mouse>/delta",
                     "interactions": "",
-                    "processors": "NormalizeVector2",
+                    "processors": "",
                     "groups": "",
                     "action": "CursorMovement",
                     "isComposite": false,
@@ -172,6 +181,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Fly",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cbc5edcb-35d7-488c-ace6-9a52460e7189",
+                    "path": "<Keyboard>/t",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SnapCursor",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5d20a4b0-7268-4810-a435-21c1ba5c3f2f",
+                    "path": "<Gamepad>/rightStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SnapCursor",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

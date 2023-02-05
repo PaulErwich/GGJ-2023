@@ -2,53 +2,71 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
-using Unity.VisualScripting;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
-    
-    Vector3 mousePosition, targetPosition;
-    private float speed_multiplier = 0.05f;
-    private float flight_impulse_magnitude = 4.0f;
+    public GameObject cursor_object;
+    [SerializeField]private float speed_multiplier = 0.05f;
+    [SerializeField]private float flight_impulse_magnitude = 4.0f;
     private InputAction move_input;
     private InputAction cursor_move_input;
     private InputAction clicking_input;
     private Rigidbody2D rb2d;
-    public float click_timer = 0;
-
-    [SerializeField] private Camera cam;
-    [SerializeField] private GameObject block;
 
     private int jump_count = 0;
-    private int max_jump_count = 3;
+    [SerializeField]private int max_jump_count = 10;
+    
+    
+    // Animator - Luryann
+    private Animator _animator;
+    private SpriteRenderer _spriteRenderer;
 
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         rb2d = GetComponent<Rigidbody2D>();
         move_input = InputManager.Instance.my_input_actions.ActionMap.PlayerMovement;
         cursor_move_input = InputManager.Instance.my_input_actions.ActionMap.CursorMovement;
         clicking_input = InputManager.Instance.my_input_actions.ActionMap.Click;
         InputManager.Instance.my_input_actions.ActionMap.Fly.started += fly;
+        InputManager.Instance.my_input_actions.ActionMap.SnapCursor.started += snapCursor;
     }
 
     private void Update()
     {
-        dig();
+        cursor_object.transform.position += new Vector3((cursor_move_input.ReadValue<Vector2>().x /100), (cursor_move_input.ReadValue<Vector2>().y/100), 0.0f);
     }
 
     private void FixedUpdate()
     {
         move();
+        moveCursor();
+        dig();
     }
 
     private void move()
     {
+        // Walk animation
+        _animator.SetFloat("Moving", math.abs(move_input.ReadValue<Vector2>().x));
+        
+        // Flip sprites
+        if (math.abs(move_input.ReadValue<Vector2>().x) > 0 )
+        {
+            _spriteRenderer.flipX = move_input.ReadValue<Vector2>().x < 0;
+        }
+        
+        
         if (move_input.ReadValue<Vector2>().x != 0)
         {
             rb2d.transform.Translate(new Vector2(move_input.ReadValue<Vector2>().x, 0.0f) * speed_multiplier);
@@ -69,6 +87,15 @@ public class PlayerController : MonoBehaviour
         */
     }
 
+    private void moveCursor()
+    {
+
+        
+        //cursor_object.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0.0f));
+        //cursor_object.transform.position = new Vector3(cursor_object.transform.position.x, cursor_object.transform.position.y, 0.0f);
+        
+    }
+
     private void fly(InputAction.CallbackContext context)
     {
         /*
@@ -82,7 +109,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log(percentage_difference);
         }
         */
-
+        _animator.SetBool("Flying", true);
         if (jump_count < max_jump_count)
         {
             rb2d.AddForce(Vector2.up * flight_impulse_magnitude, ForceMode2D.Impulse);
@@ -90,36 +117,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void snapCursor(InputAction.CallbackContext context)
+    {
+        cursor_object.transform.position = transform.position;
+    }
+
     private void dig()
     {
-        Debug.Log("Running");
-        if (clicking_input.ReadValue<Single>() == 1)
-        {
-            Debug.Log("mouse down");
-            RaycastHit2D hit = Physics2D.Raycast(cam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-            
-            if (hit.collider != null)
-            {
-                click_timer += 1.0f * Time.deltaTime;
-                if (click_timer >= 2)
-                {
-                    if (hit.collider.gameObject == block) Destroy(block);
-                    Debug.Log("HIT");
-                    Debug.Log(click_timer);
-                    click_timer = 0;
-                    
-                }
-            }
-        }
-
-        if (clicking_input.ReadValue<Single>() == 0)
-        {
-            click_timer = 0;
-        }
+        _animator.SetBool("Mining_Pickaxe", clicking_input.ReadValue<Single>().Equals(1));
     }
 
     private void OnCollisionEnter2D()
     {
+        _animator.SetBool("Flying", false);
         // need to check if other collider belongs to floor.
         jump_count = 0;
     }

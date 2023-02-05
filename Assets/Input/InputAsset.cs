@@ -41,7 +41,7 @@ public partial class @InputAsset : IInputActionCollection2, IDisposable
                     ""type"": ""Value"",
                     ""id"": ""2c6202c7-7990-4063-8a7a-3e0a2f19cc74"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": ""NormalizeVector2"",
+                    ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 },
@@ -58,6 +58,15 @@ public partial class @InputAsset : IInputActionCollection2, IDisposable
                     ""name"": ""Fly"",
                     ""type"": ""Button"",
                     ""id"": ""63874344-f0a3-443c-bdf0-88a9a514a559"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SnapCursor"",
+                    ""type"": ""Button"",
+                    ""id"": ""ec84131d-5e9b-4c6e-8b13-f0caf0c977d3"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -133,8 +142,8 @@ public partial class @InputAsset : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""ad453451-4ef2-4455-87f5-3ace77735119"",
-                    ""path"": ""<Mouse>/delta"",
+                    ""id"": ""eb53303e-182f-4267-b119-f55a4ca2c2c1"",
+                    ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
                     ""processors"": ""NormalizeVector2"",
                     ""groups"": """",
@@ -144,10 +153,10 @@ public partial class @InputAsset : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""eb53303e-182f-4267-b119-f55a4ca2c2c1"",
-                    ""path"": ""<Gamepad>/rightStick"",
+                    ""id"": ""c29e0d85-2adc-49c2-9b79-fb5088a5b89d"",
+                    ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
-                    ""processors"": ""NormalizeVector2"",
+                    ""processors"": """",
                     ""groups"": """",
                     ""action"": ""CursorMovement"",
                     ""isComposite"": false,
@@ -196,6 +205,28 @@ public partial class @InputAsset : IInputActionCollection2, IDisposable
                     ""action"": ""Fly"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cbc5edcb-35d7-488c-ace6-9a52460e7189"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SnapCursor"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5d20a4b0-7268-4810-a435-21c1ba5c3f2f"",
+                    ""path"": ""<Gamepad>/rightStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SnapCursor"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -208,6 +239,7 @@ public partial class @InputAsset : IInputActionCollection2, IDisposable
         m_ActionMap_CursorMovement = m_ActionMap.FindAction("CursorMovement", throwIfNotFound: true);
         m_ActionMap_Click = m_ActionMap.FindAction("Click", throwIfNotFound: true);
         m_ActionMap_Fly = m_ActionMap.FindAction("Fly", throwIfNotFound: true);
+        m_ActionMap_SnapCursor = m_ActionMap.FindAction("SnapCursor", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -271,6 +303,7 @@ public partial class @InputAsset : IInputActionCollection2, IDisposable
     private readonly InputAction m_ActionMap_CursorMovement;
     private readonly InputAction m_ActionMap_Click;
     private readonly InputAction m_ActionMap_Fly;
+    private readonly InputAction m_ActionMap_SnapCursor;
     public struct ActionMapActions
     {
         private @InputAsset m_Wrapper;
@@ -279,6 +312,7 @@ public partial class @InputAsset : IInputActionCollection2, IDisposable
         public InputAction @CursorMovement => m_Wrapper.m_ActionMap_CursorMovement;
         public InputAction @Click => m_Wrapper.m_ActionMap_Click;
         public InputAction @Fly => m_Wrapper.m_ActionMap_Fly;
+        public InputAction @SnapCursor => m_Wrapper.m_ActionMap_SnapCursor;
         public InputActionMap Get() { return m_Wrapper.m_ActionMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -300,6 +334,9 @@ public partial class @InputAsset : IInputActionCollection2, IDisposable
                 @Fly.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnFly;
                 @Fly.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnFly;
                 @Fly.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnFly;
+                @SnapCursor.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnSnapCursor;
+                @SnapCursor.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnSnapCursor;
+                @SnapCursor.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnSnapCursor;
             }
             m_Wrapper.m_ActionMapActionsCallbackInterface = instance;
             if (instance != null)
@@ -316,6 +353,9 @@ public partial class @InputAsset : IInputActionCollection2, IDisposable
                 @Fly.started += instance.OnFly;
                 @Fly.performed += instance.OnFly;
                 @Fly.canceled += instance.OnFly;
+                @SnapCursor.started += instance.OnSnapCursor;
+                @SnapCursor.performed += instance.OnSnapCursor;
+                @SnapCursor.canceled += instance.OnSnapCursor;
             }
         }
     }
@@ -326,5 +366,6 @@ public partial class @InputAsset : IInputActionCollection2, IDisposable
         void OnCursorMovement(InputAction.CallbackContext context);
         void OnClick(InputAction.CallbackContext context);
         void OnFly(InputAction.CallbackContext context);
+        void OnSnapCursor(InputAction.CallbackContext context);
     }
 }
