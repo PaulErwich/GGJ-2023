@@ -555,7 +555,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 470299278}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 7, y: 7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1255,9 +1255,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   map_handler: {fileID: 1851111661}
+  camera_ref: {fileID: 2036647426}
+  blocks_script: {fileID: 0}
   block_prefab: {fileID: 8886705692220639693, guid: 2d921d0c89cf6914c91bd39fe569f648, type: 3}
+  collision_block: {fileID: 1629603593442379988, guid: 8e1f4db15368e274795c4334c7f801a2, type: 3}
+  grid_ref: {fileID: 380535366}
   n_of_layers: 3
-  block_size_px: 16
+  block_size_px: 100
 --- !u!4 &1728407749
 Transform:
   m_ObjectHideFlags: 0
