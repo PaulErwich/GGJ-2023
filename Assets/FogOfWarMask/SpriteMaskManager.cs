@@ -6,9 +6,12 @@ using UnityEngine.InputSystem;
 
 public class SpriteMaskManager : MonoBehaviour
 {
-    [SerializeField] private SpriteRenderer[] allSprites;
-    [SerializeField] private Camera mainCamera;
+    private SpriteRenderer[] allSprites;
+    private Camera mainCamera;
+    
     [SerializeField] private bool maskEnabled;
+    [SerializeField] private SpriteRenderer playerFeather;
+    [SerializeField] private SpriteRenderer cursorFeather;
 
     void Awake()
     { 
@@ -32,6 +35,12 @@ public class SpriteMaskManager : MonoBehaviour
 
     void EnableSpriteMesh()
     {
+        if (playerFeather != null && cursorFeather != null)
+        {
+            playerFeather.enabled = true;
+            cursorFeather.enabled = true;
+        }
+        
         foreach (SpriteRenderer render in allSprites)
         {
             render.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
@@ -46,7 +55,13 @@ public class SpriteMaskManager : MonoBehaviour
         {
             render.maskInteraction = SpriteMaskInteraction.None;
         }
-        
+
+        if (playerFeather != null && cursorFeather != null)
+        {
+            playerFeather.enabled = false;
+            cursorFeather.enabled = false;
+        }
+
         mainCamera.backgroundColor = new Color(0.1921569f,0.3019608f,0.4745098f,1);
     }
 }
