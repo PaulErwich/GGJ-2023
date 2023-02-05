@@ -67,6 +67,27 @@ public class MapRender : MonoBehaviour
                 
                 var placed = Instantiate(collision_block, block_pos, quaternion.identity);
 
+                if (world_map[x, y] == 1)
+                {
+                    blocks_script.ChangeBlockColor(tile_pos, new Color32(72, 245, 66, 255));
+                }
+                else if (world_map[x, y] == 2)
+                {
+                    blocks_script.ChangeBlockColor(tile_pos, new Color32(232, 119, 53, 255));
+                }
+                else if (world_map[x, y] == 3)
+                {
+                    blocks_script.ChangeBlockColor(tile_pos, new Color32(128, 55, 13, 255));
+                }
+                else if (world_map[x, y] == 4)
+                {
+                    blocks_script.ChangeBlockColor(tile_pos, new Color32(59, 14, 1, 255));
+                }
+                else
+                {
+                    blocks_script.ChangeBlockColor(tile_pos, new Color32(20, 5, 0, 255));
+                }
+
                 int dino = 0;
                 if (world_map[x, y] == 67)
                 {

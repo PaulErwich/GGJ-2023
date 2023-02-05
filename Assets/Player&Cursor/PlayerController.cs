@@ -168,7 +168,7 @@ public class PlayerController : MonoBehaviour
                 //Debug.Log(click_timer);
                 click_timer += 1.0f * Time.deltaTime;
                 
-                if (click_timer >= 2)
+                if (click_timer >= 0.5f)
                 {
                     /*
                     if (hit.collider.gameObject == block)
@@ -186,7 +186,11 @@ public class PlayerController : MonoBehaviour
                         Vector3Int hitInt = new Vector3Int(
                             Mathf.RoundToInt(thing.x - (0.12f * num_x)), Mathf.RoundToInt(thing.y - (0.12f * num_y)), Mathf.RoundToInt(thing.z));
                         Camera.main.GetComponent<Blocks>().RemoveBlock(hitInt);
-                        MessageHandler.UpdateMessageContent(hit.collider.gameObject.GetComponent<Dinos>().DinoID, _artefactFactManager.getDescription(hit.collider.gameObject.GetComponent<Dinos>().DinoID));
+                        if (hit.collider.gameObject.GetComponent<Dinos>())
+                        {
+                            MessageHandler.UpdateMessageContent(hit.collider.gameObject.GetComponent<Dinos>().DinoID, _artefactFactManager.getDescription(hit.collider.gameObject.GetComponent<Dinos>().DinoID));
+                        }
+                        
                         Destroy(hit.collider.gameObject);
                     }
 

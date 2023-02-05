@@ -27,8 +27,8 @@ public class UIScript : MonoBehaviour
         depthslider = gameObject.transform.Find("Depth_slider").GetComponent<Slider>();
         depthslider.value = 1f; //starts the player at the top of the depth slider.
         
-        picklogo = gameObject.transform.Find("Pick_level").GetComponent<Image>();
-        shovelogo = gameObject.transform.Find("Shovel_level").GetComponent<Image>();
+        picklogo = gameObject.transform.Find("Pick-level").GetComponent<Image>();
+        shovelogo = gameObject.transform.Find("Shovel-level").GetComponent<Image>();
         tools = Resources.LoadAll<Sprite>("Sprites/tools");
     }
     

@@ -32,4 +32,9 @@ public class Blocks : MonoBehaviour
     {
         Tilemaps.SetTile(pos, null);
     }
+
+    public void ChangeBlockColor(Vector3Int pos, Color32 color)
+    {
+        Tilemaps.SetColor(pos, color);
+    }
 }
