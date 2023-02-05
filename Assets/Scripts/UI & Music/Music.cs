@@ -6,9 +6,12 @@ public class Music : MonoBehaviour
 {
     private AudioSource audio;
     private bool began;
+
+    private AudioClip[] songs;
     void Start()
     {
         audio = gameObject.GetComponent<AudioSource>();
+        songs = Resources.LoadAll<AudioClip>("Audio/Songs");
         Time.timeScale = 0;
         began = false;
     }
@@ -16,7 +19,7 @@ public class Music : MonoBehaviour
     {
         if (Input.anyKey && began == false)
         {
-            audio.clip = Resources.Load<AudioClip>("Audio/Main_theme_C");
+            audio.clip = songs[1];
             audio.Play();
             Time.timeScale = 1;
             gameObject.transform.Find("Title").gameObject.SetActive(false);
