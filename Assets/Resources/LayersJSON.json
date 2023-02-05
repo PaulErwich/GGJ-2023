@@ -1,0 +1,31 @@
+{
+  "periods": [
+    {
+      "Name": "Cretaceous",
+      "Dinos": [
+        "Velociraptor",
+        "Spinosaurus",
+        "Corythosaurus",
+        "Irritator",
+        "Iguanodon"
+      ]
+    },
+    {
+      "Name": "Jurassic",
+      "Dinos": [
+        "Apatosaurus",
+        "Diplodocus",
+        "Archaeopteryx",
+        "Dilophosaurus"
+      ]
+    },
+    {
+      "Name": "Triassic",
+      "Dinos": [
+        "Mussaurus",
+        "Staurikosaurus",
+        "Eoraptor"
+      ]
+    }
+  ]
+}

@@ -35,14 +35,15 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        
         _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
         rb2d = GetComponent<Rigidbody2D>();
         move_input = InputManager.Instance.my_input_actions.ActionMap.PlayerMovement;
         cursor_move_input = InputManager.Instance.my_input_actions.ActionMap.CursorMovement;
@@ -53,7 +54,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        cursor_object.transform.position += new Vector3((cursor_move_input.ReadValue<Vector2>().x /100), (cursor_move_input.ReadValue<Vector2>().y/100), 0.0f);
+        moveCursor();
         dig_act();
     }
 
@@ -98,6 +99,7 @@ public class PlayerController : MonoBehaviour
 
     private void moveCursor()
     {
+        cursor_object.transform.position += new Vector3((cursor_move_input.ReadValue<Vector2>().x /100), (cursor_move_input.ReadValue<Vector2>().y/100), 0.0f);
         //cursor_object.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0.0f));
         //cursor_object.transform.position = new Vector3(cursor_object.transform.position.x, cursor_object.transform.position.y, 0.0f);
     }
@@ -115,6 +117,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log(percentage_difference);
         }
         */
+        
         _animator.SetBool("Flying", true);
         if (jump_count < max_jump_count)
         {
@@ -135,10 +138,8 @@ public class PlayerController : MonoBehaviour
 
     private void dig_act()
     {
-        Debug.Log("Running");
         if (clicking_input.ReadValue<Single>() == 1)
         {
-            Debug.Log("mouse down");
             RaycastHit2D hit = Physics2D.Raycast(cam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             
             if (hit.collider != null)
@@ -150,7 +151,6 @@ public class PlayerController : MonoBehaviour
                     {
                         Destroy(block);
                     }
-                    Debug.Log("HIT");
                     //Debug.Log(click_timer);
                     click_timer = 0;
                     
