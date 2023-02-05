@@ -23,10 +23,13 @@ public class MapRender : MonoBehaviour
     public int n_of_layers = 0;
 
     private int[,] world_map;
-    public int block_size = 1;
+    public int block_size_px = 1;
+    private float block_size = 1;
 
     private void Awake()
     {
+        block_size = (float)block_size_px / 100;
+        
         var handler = map_handler.GetComponent<MapHandler>();
         handler.n_of_layers = n_of_layers;
         world_map = handler.GenerateMap();
@@ -60,6 +63,10 @@ public class MapRender : MonoBehaviour
                     
                     case 4:
                         placed_block.GetComponent<SpriteRenderer>().material.color = Color.magenta;
+                        break;
+                    
+                    case 5:
+                        placed_block.GetComponent<SpriteRenderer>().material.color = Color.white;
                         break;
                     
                     default:

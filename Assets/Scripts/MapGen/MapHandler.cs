@@ -54,6 +54,7 @@ public class MapHandler : MonoBehaviour
         
         //LAYER GEN ----------------------------------------------
 
+        // SKY
         for (int y = 0; y < sky_height; y++)
         {
             for (int x = 0; x < map_width; x++)
@@ -61,7 +62,8 @@ public class MapHandler : MonoBehaviour
                 world_map[x, y] = 1;
             }
         }
-
+        
+        // LAYERS
         for (int i = 0; i < n_of_layers; i++)
         {
             for (int y = layers_height_start[i]; y < layers_height_start[i] + layers_height[i]; y++)
@@ -76,7 +78,6 @@ public class MapHandler : MonoBehaviour
 
         //LAYER MERGING
         MergeFirstLayer(layers_height_start[0], 1,2);
-        
         int j = 0;
         for (int f = 1; f < n_of_layers; f++)
         {
@@ -85,7 +86,29 @@ public class MapHandler : MonoBehaviour
         }
         MergeLayers(layers_height_start[n_of_layers], j+1,255);
 
+        //FOSSIL CREATION
+        for (int i = 0; i < n_of_layers; i++)
+        {
+            FossilMergingLayer(1.9f, 0.70f, 1, i);
+        }
+        
+        //Caves Gen
+        LayerGenerator.GeneratesCaves(0.6f,5, world_map, sky_height + 6, bedrock_height);
+        
         return world_map;
+    }
+
+    //FOSSIL LOCATION CREATION
+    private void FossilMergingLayer(float fossil_intensity, float fossil_sensitivity, int fossil_id, int layer_n)
+    {
+        //intensity 1.9f, sensitivity = 0.70f;
+        fossil_intensity = UnityEngine.Random.Range(fossil_intensity - 0.1f, fossil_intensity + 0.1f);
+        fossil_sensitivity = UnityEngine.Random.Range(fossil_sensitivity, fossil_sensitivity + 0.05f);
+
+        var fossil_location = LayerGenerator.GenerateFossils(map_size_x, layers_height[layer_n], 
+            fossil_intensity, fossil_sensitivity);
+
+        LayerGenerator.MergeFossils(layers_height_start[layer_n] + 6, fossil_id, fossil_location, world_map );
     }
 
     private void MergeLayers(int merge_start, int layer1, int layer2)
