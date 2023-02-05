@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -34,9 +35,8 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        
+        resetCursor();
+
         _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
@@ -83,7 +83,18 @@ public class PlayerController : MonoBehaviour
 
     private void moveCursor()
     {
-        cursor_object.transform.position += new Vector3((cursor_move_input.ReadValue<Vector2>().x /100), (cursor_move_input.ReadValue<Vector2>().y/100), 0.0f);
+        Vector3 potential_new_pos = cursor_object.transform.position + new Vector3((cursor_move_input.ReadValue<Vector2>().x /100), (cursor_move_input.ReadValue<Vector2>().y/100), 0.0f);
+        Vector3 world_space_pos = cam.WorldToViewportPoint(potential_new_pos);
+        
+        if (world_space_pos.x > 0.0f && world_space_pos.x < 1.0f)
+        {
+            cursor_object.transform.position = new Vector3(potential_new_pos.x, cursor_object.transform.position.y, cursor_object.transform.position.z);
+        }
+
+        if (world_space_pos.y > 0.0f && world_space_pos.y < 1.0f)
+        {
+            cursor_object.transform.position = new Vector3(cursor_object.transform.position.x, potential_new_pos.y, cursor_object.transform.position.z);
+        }
     }
 
     private void fly(InputAction.CallbackContext context)
@@ -97,10 +108,14 @@ public class PlayerController : MonoBehaviour
     }
 
     private void snapCursor(InputAction.CallbackContext context)
+    { 
+        resetCursor();
+    }
+
+    private void resetCursor()
     {
         cursor_object.transform.position = transform.position;
-        cursor_object.transform.position =
-            new Vector3(cursor_object.transform.position.x, cursor_object.transform.position.y, -1.0f);
+        cursor_object.transform.position = new Vector3(cursor_object.transform.position.x, cursor_object.transform.position.y, -1.0f);
     }
 
     private void dig()
@@ -164,6 +179,23 @@ public class PlayerController : MonoBehaviour
         {
             Vector2 hitPoint = contact.point;
             Instantiate(hit_ground, new Vector3(hitPoint.x, hitPoint.y - 0.07f, -0.1f), Quaternion.identity);
+        }
+    }
+
+    private void OnApplicationFocus(bool hasFocus)
+    {
+        if (hasFocus)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            resetCursor();
+            Debug.Log("focused");
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            Debug.Log("unfocused");
         }
     }
 }

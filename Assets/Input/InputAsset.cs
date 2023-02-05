@@ -145,7 +145,7 @@ public partial class @InputAsset : IInputActionCollection2, IDisposable
                     ""id"": ""eb53303e-182f-4267-b119-f55a4ca2c2c1"",
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
-                    ""processors"": ""NormalizeVector2"",
+                    ""processors"": """",
                     ""groups"": """",
                     ""action"": ""CursorMovement"",
                     ""isComposite"": false,
