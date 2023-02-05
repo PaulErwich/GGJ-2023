@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -39,6 +41,7 @@ public class ArtefactFactManager : MonoBehaviour
     
     [SerializeField] public TextAsset descriptions_json_file;
     [SerializeField] public TextAsset layers_json_file;
+    [SerializeField] private string[] asset_folder_path = {"Assets/Prefabs/BLOCKPREFABS"};
 
     private void Start()
     {
@@ -63,5 +66,35 @@ public class ArtefactFactManager : MonoBehaviour
     public Dictionary<string, string[]> getLayers()
     {
         return layers;
+    }
+
+    public Dictionary<int, List<KeyValuePair<string, GameObject>>> getBlockPrefabs()
+    {
+        // int = layer // string = name // GameObject = prefab.
+        Dictionary<int, List<KeyValuePair<string, GameObject>>> prefabs = new Dictionary<int, List<KeyValuePair<string, GameObject>>>();
+
+        int layer_count = 0;
+        
+        foreach (var layer in layers)
+        {
+            List<KeyValuePair<string, GameObject>> layer_prefabs = new List<KeyValuePair<string, GameObject>>();
+            
+            foreach (var bone in layer.Value)
+            {
+                string[] identifiers = AssetDatabase.FindAssets("DinoBase", asset_folder_path);
+
+                for (int i = 0; i < identifiers.Length; i++) 
+                {
+                    string path = AssetDatabase.GUIDToAssetPath(identifiers[i]);
+                    layer_prefabs.Add(new KeyValuePair<string, GameObject>(bone,AssetDatabase.LoadAssetAtPath<GameObject>(path)));
+                }
+            }
+            
+            //layer_prefabs.Add(AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.FindAssets("Block", asset_folder_path)[0]));
+            prefabs.Add(layer_count, layer_prefabs);
+            layer_count++;
+        }
+
+        return prefabs;
     }
 }

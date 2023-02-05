@@ -167,6 +167,10 @@ public class PlayerController : MonoBehaviour
 
                     if (hit.collider.gameObject.tag == "Block")
                     {
+                        var thing = hit.collider.gameObject.transform.position;
+                        Vector3Int hitInt = new Vector3Int(
+                            Mathf.RoundToInt(thing.x), Mathf.RoundToInt(thing.x), Mathf.RoundToInt(thing.x));
+                        Camera.main.GetComponent<Blocks>().RemoveBlock(hitInt);
                         Destroy(hit.collider.gameObject);
                     }
 
@@ -182,17 +186,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D()
+    
+    private void OnCollisionEnter2D(Collision2D col)
     {
         _animator.SetBool("Flying", false);
         
         // Test collision
-        //spawnDustOnCollision(col);
+        spawnDustOnCollision(col);
         
         // NEED TO CHECK WHETHER COLLIDING OBJECT IS FLOOR.
         jump_count = 0;
     }
-
     void spawnDustOnCollision(Collision2D col)
     {
         foreach (ContactPoint2D contact in col.contacts)
@@ -209,13 +213,11 @@ public class PlayerController : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             resetCursor();
-            Debug.Log("focused");
         }
         else
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-            Debug.Log("unfocused");
         }
     }
 

@@ -248,8 +248,8 @@ MonoBehaviour:
   layer7: {fileID: 0}
   layer8: {fileID: 0}
   bedrock_layer: {fileID: 0}
-  n_of_layers: 5
-  block_size: 0
+  n_of_layers: 7
+  block_size_px: 16
 --- !u!4 &1344669543
 Transform:
   m_ObjectHideFlags: 0
