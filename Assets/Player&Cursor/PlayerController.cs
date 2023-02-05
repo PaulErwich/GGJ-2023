@@ -21,11 +21,10 @@ public class PlayerController : MonoBehaviour
     public float click_timer = 0;
 
     [SerializeField] private Camera cam;
-    [SerializeField] private GameObject block;
+    //[SerializeField] private GameObject block;
     
     private int jump_count = 0;
     [SerializeField]private int max_jump_count = 10;
-    
     
     // Animator - Luryann
     private Animator _animator;
@@ -61,7 +60,6 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         move();
-        moveCursor();
         dig();
     }
 
@@ -76,48 +74,20 @@ public class PlayerController : MonoBehaviour
             _spriteRenderer.flipX = move_input.ReadValue<Vector2>().x < 0;
         }
         
-        
+        // Move player
         if (move_input.ReadValue<Vector2>().x != 0)
         {
             rb2d.transform.Translate(new Vector2(move_input.ReadValue<Vector2>().x, 0.0f) * speed_multiplier);
         }
-        
-        /*
-        if (move_input.ReadValue<Vector2>().x != 0)
-        {
-            Vector2 move_vector = new Vector2(move_input.ReadValue<Vector2>().x * 10, 0.0f);
-            rb2d.AddForce(move_vector, ForceMode2D.Impulse);
-            rb2d.velocity = Vector2.ClampMagnitude(rb2d.velocity, 5);
-        }
-        else
-        {
-            float new_Horizontal_velocity = Mathf.Lerp(rb2d.velocity.x, 0, 0.5f);
-            rb2d.velocity = new Vector2 (new_Horizontal_velocity, rb2d.velocity.y);
-        }
-        */
     }
 
     private void moveCursor()
     {
         cursor_object.transform.position += new Vector3((cursor_move_input.ReadValue<Vector2>().x /100), (cursor_move_input.ReadValue<Vector2>().y/100), 0.0f);
-        //cursor_object.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0.0f));
-        //cursor_object.transform.position = new Vector3(cursor_object.transform.position.x, cursor_object.transform.position.y, 0.0f);
     }
 
     private void fly(InputAction.CallbackContext context)
     {
-        /*
-        float percentage_difference = 1;
-        
-        if (rb2d.velocity.y > 0) // if going up cap speed on axis
-        {
-            float delta_velocity = rb2d.velocity.y - max_fly_velocity;
-                
-            percentage_difference -= (delta_velocity / max_fly_velocity);
-            Debug.Log(percentage_difference);
-        }
-        */
-        
         _animator.SetBool("Flying", true);
         if (jump_count < max_jump_count)
         {
@@ -129,6 +99,8 @@ public class PlayerController : MonoBehaviour
     private void snapCursor(InputAction.CallbackContext context)
     {
         cursor_object.transform.position = transform.position;
+        cursor_object.transform.position =
+            new Vector3(cursor_object.transform.position.x, cursor_object.transform.position.y, -1.0f);
     }
 
     private void dig()
@@ -140,20 +112,31 @@ public class PlayerController : MonoBehaviour
     {
         if (clicking_input.ReadValue<Single>() == 1)
         {
-            RaycastHit2D hit = Physics2D.Raycast(cam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            //RaycastHit2D hit = Physics2D.Raycast(cam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            Ray ray = new Ray(cursor_object.transform.position, Vector3.forward);
+            RaycastHit2D hit = Physics2D.GetRayIntersection(ray);
             
             if (hit.collider != null)
             {
+                //Debug.Log(hit.collider.name);
+                //Debug.Log(click_timer);
                 click_timer += 1.0f * Time.deltaTime;
+                
                 if (click_timer >= 2)
                 {
+                    /*
                     if (hit.collider.gameObject == block)
                     {
                         Destroy(block);
                     }
-                    //Debug.Log(click_timer);
+                    */
+
+                    if (hit.collider.gameObject.tag == "Block")
+                    {
+                        Destroy(hit.collider.gameObject);
+                    }
+
                     click_timer = 0;
-                    
                 }
             }
         }
@@ -164,7 +147,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    
     private void OnCollisionEnter2D()
     {
         _animator.SetBool("Flying", false);
@@ -172,7 +154,7 @@ public class PlayerController : MonoBehaviour
         // Test collision
         //spawnDustOnCollision(col);
         
-        // need to check if other collider belongs to floor.
+        // NEED TO CHECK WHETHER COLLIDING OBJECT IS FLOOR.
         jump_count = 0;
     }
 

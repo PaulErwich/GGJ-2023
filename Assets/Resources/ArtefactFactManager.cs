@@ -55,4 +55,14 @@ public class ArtefactFactManager : MonoBehaviour
             layers.Add(json_period.Name, json_period.Dinos);
         }
     }
+
+    public string getDescription(string name)
+    {
+        return descriptions[name];
+    }
+
+    public Dictionary<string, string[]> getLayers()
+    {
+        return layers;
+    }
 }
