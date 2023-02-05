@@ -42,7 +42,6 @@ public class ArtefactFactManager : MonoBehaviour
     [SerializeField] public TextAsset descriptions_json_file;
     [SerializeField] public TextAsset layers_json_file;
     [SerializeField] private string[] asset_folder_path = {"Assets/Prefabs/BLOCKPREFABS"};
-    [SerializeField] public Dictionary<int, List<GameObject>> test = new Dictionary<int, List<GameObject>>();
 
     private void Start()
     {
@@ -57,9 +56,6 @@ public class ArtefactFactManager : MonoBehaviour
         {
             layers.Add(json_period.Name, json_period.Dinos);
         }
-
-        test = getBlockPrefabs();
-
     }
 
     public string getDescription(string name)
@@ -72,29 +68,33 @@ public class ArtefactFactManager : MonoBehaviour
         return layers;
     }
 
-    public Dictionary<int, List<GameObject>> getBlockPrefabs()
+    public Dictionary<int, List<KeyValuePair<string, GameObject>>> getBlockPrefabs()
     {
-        Dictionary<int, List<GameObject>> bones = new Dictionary<int, List<GameObject>>();
+        // int = layer // string = name // GameObject = prefab.
+        Dictionary<int, List<KeyValuePair<string, GameObject>>> prefabs = new Dictionary<int, List<KeyValuePair<string, GameObject>>>();
 
         int layer_count = 0;
+        
         foreach (var layer in layers)
         {
-            List<GameObject> dinos = new List<GameObject>();
+            List<KeyValuePair<string, GameObject>> layer_prefabs = new List<KeyValuePair<string, GameObject>>();
             
             foreach (var bone in layer.Value)
             {
-                string[] identifiers = AssetDatabase.FindAssets(bone, asset_folder_path);
+                string[] identifiers = AssetDatabase.FindAssets("DinoBase", asset_folder_path);
 
-                for (int i = 0; i < identifiers.Length; i++)
+                for (int i = 0; i < identifiers.Length; i++) 
                 {
                     string path = AssetDatabase.GUIDToAssetPath(identifiers[i]);
-                    dinos.Add(AssetDatabase.LoadAssetAtPath<GameObject>(path));
+                    layer_prefabs.Add(new KeyValuePair<string, GameObject>(bone,AssetDatabase.LoadAssetAtPath<GameObject>(path)));
                 }
             }
-            bones.Add(layer_count, dinos);
+            
+            //layer_prefabs.Add(AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.FindAssets("Block", asset_folder_path)[0]));
+            prefabs.Add(layer_count, layer_prefabs);
             layer_count++;
         }
 
-        return bones;
+        return prefabs;
     }
 }
