@@ -89,7 +89,7 @@ public class MapHandler : MonoBehaviour
         //FOSSIL CREATION
         for (int i = 0; i < n_of_layers; i++)
         {
-            FossilMergingLayer(1.9f, 0.70f, 1, i);
+            FossilMergingLayer(1.9f, 0.70f, 67+i, i);
         }
         
         //Caves Gen

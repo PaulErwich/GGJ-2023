@@ -15,6 +15,8 @@ public class MapRender : MonoBehaviour
 
     public GameObject grid_ref;
 
+    public ArtefactFactManager manager;
+
     // public GameObject sky_layer = null;
     // public GameObject layer1 = null;
     // public GameObject layer2 = null;
@@ -39,6 +41,8 @@ public class MapRender : MonoBehaviour
 
     private void Start()
     {
+        manager = FindObjectOfType<ArtefactFactManager>();
+        
         block_size = (float)block_size_px / 100;
         
         var handler = map_handler.GetComponent<MapHandler>();
@@ -49,6 +53,9 @@ public class MapRender : MonoBehaviour
 
     public void RenderMap()
     {
+        //AAAAAAA
+        Dictionary<int, List<KeyValuePair<string, GameObject>>> prefabs = manager.getBlockPrefabs();
+
         for (int x = 0; x < world_map.GetLength(0); x++)
         {
             for (int y = 0; y < world_map.GetLength(1); y++)
@@ -57,37 +64,43 @@ public class MapRender : MonoBehaviour
                 Vector3 block_pos = new Vector3( (-1.12f * x * block_size), (-1.12f * y * block_size), 0);
                 
                 blocks_script.PlaceBlock(tile_pos);
-                var placed = Instantiate(collision_block, block_pos, quaternion.identity);
                 
-                //Instantiate(block_prefab, pos, rot);
-                //blocks_script.PlaceBlock(pos);
+                var placed = Instantiate(collision_block, block_pos, quaternion.identity);
 
-                /*switch (world_map[x,y])
+                int dino = 0;
+                if (world_map[x, y] == 67)
                 {
-                    case 1:
-                        placed_block.GetComponent<SpriteRenderer>().material.color = Color.cyan;
-                        break;
+                    dino = UnityEngine.Random.Range(0, prefabs[0].Count);
                     
-                    case 2:
-                        placed_block.GetComponent<SpriteRenderer>().material.color = Color.green;
-                        break;
+                    var GO_temp = Instantiate(prefabs[0][dino].Value, block_pos, quaternion.identity);
+
+                    GO_temp.GetComponent<Dinos>().DinoID = prefabs[0][dino].Key;
                     
-                    case 3:
-                        placed_block.GetComponent<SpriteRenderer>().material.color = Color.red;
-                        break;
+                    blocks_script.RemoveBlock(tile_pos);
+                    Destroy(placed);
+                }
+                if (world_map[x, y] == 68)
+                {
+                    dino = UnityEngine.Random.Range(0, prefabs[1].Count);
                     
-                    case 4:
-                        placed_block.GetComponent<SpriteRenderer>().material.color = Color.magenta;
-                        break;
+                    var GO_temp = Instantiate(prefabs[1][dino].Value, block_pos, quaternion.identity);
+
+                    GO_temp.GetComponent<Dinos>().DinoID = prefabs[1][dino].Key;
                     
-                    case 5:
-                        placed_block.GetComponent<SpriteRenderer>().material.color = Color.white;
-                        break;
+                    blocks_script.RemoveBlock(tile_pos);
+                    Destroy(placed);
+                }
+                if (world_map[x, y] == 69)
+                {
+                    dino = UnityEngine.Random.Range(0, prefabs[2].Count);
                     
-                    default:
-                        placed_block.GetComponent<SpriteRenderer>().material.color = Color.black;
-                        break;
-                }*/
+                    var GO_temp = Instantiate(prefabs[2][dino].Value, block_pos, quaternion.identity);
+
+                    GO_temp.GetComponent<Dinos>().DinoID = prefabs[2][dino].Key;
+                    
+                    blocks_script.RemoveBlock(tile_pos);
+                    Destroy(placed);
+                }
 
                 if (world_map[x, y] == 5)
                 {

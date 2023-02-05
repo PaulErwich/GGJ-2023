@@ -148,6 +148,10 @@ public class PlayerController : MonoBehaviour
 
                     if (hit.collider.gameObject.tag == "Block")
                     {
+                        var thing = hit.collider.gameObject.transform.position;
+                        Vector3Int hitInt = new Vector3Int(
+                            Mathf.RoundToInt(thing.x), Mathf.RoundToInt(thing.x), Mathf.RoundToInt(thing.x));
+                        Camera.main.GetComponent<Blocks>().RemoveBlock(hitInt);
                         Destroy(hit.collider.gameObject);
                     }
 
