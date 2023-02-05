@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
     private Animator _animator;
     private SpriteRenderer _spriteRenderer;
 
+    public GameObject hit_ground;
+
     private void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -96,11 +98,8 @@ public class PlayerController : MonoBehaviour
 
     private void moveCursor()
     {
-
-        
         //cursor_object.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0.0f));
         //cursor_object.transform.position = new Vector3(cursor_object.transform.position.x, cursor_object.transform.position.y, 0.0f);
-        
     }
 
     private void fly(InputAction.CallbackContext context)
@@ -169,7 +168,20 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter2D()
     {
         _animator.SetBool("Flying", false);
+        
+        // Test collision
+        //spawnDustOnCollision(col);
+        
         // need to check if other collider belongs to floor.
         jump_count = 0;
+    }
+
+    void spawnDustOnCollision(Collision2D col)
+    {
+        foreach (ContactPoint2D contact in col.contacts)
+        {
+            Vector2 hitPoint = contact.point;
+            Instantiate(hit_ground, new Vector3(hitPoint.x, hitPoint.y - 0.07f, -0.1f), Quaternion.identity);
+        }
     }
 }
