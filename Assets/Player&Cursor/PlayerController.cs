@@ -162,17 +162,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D()
+    
+    private void OnCollisionEnter2D(Collision2D col)
     {
         _animator.SetBool("Flying", false);
         
         // Test collision
-        //spawnDustOnCollision(col);
+        spawnDustOnCollision(col);
         
         // NEED TO CHECK WHETHER COLLIDING OBJECT IS FLOOR.
         jump_count = 0;
     }
-
     void spawnDustOnCollision(Collision2D col)
     {
         foreach (ContactPoint2D contact in col.contacts)
