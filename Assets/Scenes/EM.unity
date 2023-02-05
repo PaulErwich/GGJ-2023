@@ -2279,8 +2279,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92fb69e6dea80e54a85b90b025b23cff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allSprites: []
-  mainCamera: {fileID: 1206275706}
   maskEnabled: 0
   playerFeather: {fileID: 376539053}
   cursorFeather: {fileID: 693526137}
@@ -2347,9 +2345,9 @@ MonoBehaviour:
   flight_impulse_magnitude: 4
   click_timer: 0
   cam: {fileID: 1206275706}
-  block: {fileID: 0}
   max_jump_count: 10
   hit_ground: {fileID: 0}
+  torch: {fileID: 258442663510904769, guid: 1065387dddeb44843a302e1264e664e4, type: 3}
 --- !u!50 &1304983357
 Rigidbody2D:
   serializedVersion: 4
