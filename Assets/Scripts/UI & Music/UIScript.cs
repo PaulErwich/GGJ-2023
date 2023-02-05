@@ -33,16 +33,11 @@ public class UIScript : MonoBehaviour
     
     void FixedUpdate()
     {
-        if (player.transform.position.y >= gameheight) 
+        if (player.transform.position.y <= 0) 
         {
-            depthslider.enabled = false;
+            pheight = Mathf.Abs(player.transform.position.y / gameheight);
+            depthslider.value = 1f - pheight;
         }
-        else
-        {
-            depthslider.enabled = true;
-        }
-        pheight = Mathf.Abs(player.transform.position.y / gameheight);
-        depthslider.value = 1f - pheight;
     }
 
     public void NewTools(bool pick = false, bool shovel = false)
