@@ -9,6 +9,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
+    Vector3 mousePosition, targetPosition;
     public GameObject cursor_object;
     [SerializeField]private float speed_multiplier = 0.05f;
     [SerializeField]private float flight_impulse_magnitude = 4.0f;
@@ -17,6 +18,11 @@ public class PlayerController : MonoBehaviour
     private InputAction clicking_input;
     private Rigidbody2D rb2d;
 
+    public float click_timer = 0;
+
+    [SerializeField] private Camera cam;
+    [SerializeField] private GameObject block;
+    
     private int jump_count = 0;
     [SerializeField]private int max_jump_count = 10;
     
@@ -46,6 +52,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         cursor_object.transform.position += new Vector3((cursor_move_input.ReadValue<Vector2>().x /100), (cursor_move_input.ReadValue<Vector2>().y/100), 0.0f);
+        dig_act();
     }
 
     private void FixedUpdate()
@@ -127,6 +134,38 @@ public class PlayerController : MonoBehaviour
         _animator.SetBool("Mining_Pickaxe", clicking_input.ReadValue<Single>().Equals(1));
     }
 
+    private void dig_act()
+    {
+        Debug.Log("Running");
+        if (clicking_input.ReadValue<Single>() == 1)
+        {
+            Debug.Log("mouse down");
+            RaycastHit2D hit = Physics2D.Raycast(cam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            
+            if (hit.collider != null)
+            {
+                click_timer += 1.0f * Time.deltaTime;
+                if (click_timer >= 2)
+                {
+                    if (hit.collider.gameObject == block)
+                    {
+                        Destroy(block);
+                    }
+                    Debug.Log("HIT");
+                    //Debug.Log(click_timer);
+                    click_timer = 0;
+                    
+                }
+            }
+        }
+
+        if (clicking_input.ReadValue<Single>() == 0)
+        {
+            click_timer = 0;
+        }
+    }
+
+    
     private void OnCollisionEnter2D()
     {
         _animator.SetBool("Flying", false);
