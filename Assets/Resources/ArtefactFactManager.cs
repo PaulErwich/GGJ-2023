@@ -16,6 +16,12 @@ public class NewBehaviourScript : MonoBehaviour
     private void Start()
     {
         json_string = File.ReadAllText(json_filepath);
-        //JsonUtility.FromJson<>()
+        descriptions = JsonUtility.FromJson<Dictionary<string, string>>(json_filepath);
+        /*
+        foreach (var descriptions in descriptions)
+        {
+            
+        }
+        */
     }
 }
