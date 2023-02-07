@@ -3,7 +3,10 @@ guid: 2e4c0bc2ceb34c14ab4846810fb697bb
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - DinoPrefab: {fileID: 6803156114643451109, guid: ac89e2cbc01967149a3cfb68aaf8f36d, type: 3}
+  - descriptions_json_file: {fileID: 4900000, guid: a3d4761bb70bbb5408cd919aec7e4f21, type: 3}
+  - layers_json_file: {fileID: 4900000, guid: 5e206cf9ce65cce4a8855b05f6acaab8, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

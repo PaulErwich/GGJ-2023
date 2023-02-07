@@ -188,6 +188,10 @@ public class PlayerController : MonoBehaviour
                         Camera.main.GetComponent<Blocks>().RemoveBlock(hitInt);
                         if (hit.collider.gameObject.GetComponent<Dinos>())
                         {
+                            // if (_artefactFactManager.getDescription(hit.collider.gameObject.GetComponent<Dinos>().DinoID) == null)
+                            // {
+                            //     Destroy(hit.collider.gameObject);
+                            // }
                             MessageHandler.UpdateMessageContent(hit.collider.gameObject.GetComponent<Dinos>().DinoID, _artefactFactManager.getDescription(hit.collider.gameObject.GetComponent<Dinos>().DinoID));
                         }
                         

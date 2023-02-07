@@ -91,7 +91,7 @@ public class MapRender : MonoBehaviour
                 int dino = 0;
                 if (world_map[x, y] == 67)
                 {
-                    dino = UnityEngine.Random.Range(0, prefabs[0].Count);
+                    dino = UnityEngine.Random.Range(0, prefabs.Count);
                     
                     var GO_temp = Instantiate(prefabs[0][dino].Value, block_pos, quaternion.identity);
 
@@ -102,10 +102,10 @@ public class MapRender : MonoBehaviour
                 }
                 if (world_map[x, y] == 68)
                 {
-                    dino = UnityEngine.Random.Range(0, prefabs[1].Count);
+                    dino = UnityEngine.Random.Range(0, prefabs.Count);
                     
                     var GO_temp = Instantiate(prefabs[1][dino].Value, block_pos, quaternion.identity);
-
+                
                     GO_temp.GetComponent<Dinos>().DinoID = prefabs[1][dino].Key;
                     
                     blocks_script.RemoveBlock(tile_pos);
@@ -113,10 +113,10 @@ public class MapRender : MonoBehaviour
                 }
                 if (world_map[x, y] == 69)
                 {
-                    dino = UnityEngine.Random.Range(0, prefabs[2].Count);
+                    dino = UnityEngine.Random.Range(0, prefabs.Count);
                     
                     var GO_temp = Instantiate(prefabs[2][dino].Value, block_pos, quaternion.identity);
-
+                
                     GO_temp.GetComponent<Dinos>().DinoID = prefabs[2][dino].Key;
                     
                     blocks_script.RemoveBlock(tile_pos);

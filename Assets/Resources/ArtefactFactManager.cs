@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
-using UnityEditor;
+//using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -36,6 +36,8 @@ public class Periods
 
 public class ArtefactFactManager : MonoBehaviour
 {
+    public GameObject DinoPrefab;
+    
     private Dictionary<string, string> descriptions = new Dictionary<string, string>();
     private Dictionary<string, string[]> layers = new Dictionary<string, string[]>();
     
@@ -78,16 +80,18 @@ public class ArtefactFactManager : MonoBehaviour
         foreach (var layer in layers)
         {
             List<KeyValuePair<string, GameObject>> layer_prefabs = new List<KeyValuePair<string, GameObject>>();
+            layer_prefabs.Add(new KeyValuePair<string, GameObject>(layer.Key, DinoPrefab));
             
             foreach (var bone in layer.Value)
             {
-                string[] identifiers = AssetDatabase.FindAssets("DinoBase", asset_folder_path);
-
-                for (int i = 0; i < identifiers.Length; i++) 
-                {
-                    string path = AssetDatabase.GUIDToAssetPath(identifiers[i]);
-                    layer_prefabs.Add(new KeyValuePair<string, GameObject>(bone,AssetDatabase.LoadAssetAtPath<GameObject>(path)));
-                }
+                //string[] identifiers = AssetDatabase.FindAssets("DinoBase", asset_folder_path);
+                layer_prefabs.Add(new KeyValuePair<string, GameObject>(bone, DinoPrefab));
+                
+                // for (int i = 0; i < identifiers.Length; i++) 
+                // {
+                //     string path = AssetDatabase.GUIDToAssetPath(identifiers[i]);
+                //     layer_prefabs.Add(new KeyValuePair<string, GameObject>(bone,AssetDatabase.LoadAssetAtPath<GameObject>(path)));
+                // }
             }
             
             //layer_prefabs.Add(AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.FindAssets("Block", asset_folder_path)[0]));
